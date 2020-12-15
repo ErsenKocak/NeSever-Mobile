@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ne_sever_mobile/core/app/size_config.dart';
 
 const kPrimaryColor = Color(0xFFFF7643);
+const kBlueColor = Color(0xFF1A8CFF);
 const kPrimaryLightColor = Color(0xFFFFECDF);
 const kSecondaryColor = Color(0xFF979797);
 const kTextColor = Color(0xFF757575);

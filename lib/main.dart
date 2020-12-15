@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:ne_sever_mobile/core/app/theme.dart';
+import 'package:ne_sever_mobile/core/init/locator/locator.dart';
+import 'package:ne_sever_mobile/views/category/view/category_view.dart';
 import 'package:ne_sever_mobile/views/forgot_password/view/forgot_password_view.dart';
 import 'package:ne_sever_mobile/views/home/view/home_view.dart';
+import 'package:ne_sever_mobile/views/router_view/view/router_view.dart';
 import 'package:ne_sever_mobile/views/sign_in/view/sign_in_view.dart';
 import 'package:ne_sever_mobile/views/splash/view/splash_view.dart';
 
 import 'views/sign_up/view/sign_up_view.dart';
 
 void main() {
+  setupLocator();
   runApp(MyApp());
 }
 
@@ -24,7 +28,8 @@ class MyApp extends StatelessWidget {
         '/signIn': (context) => SignInView(),
         '/home': (context) => HomeView(),
         '/forgot-password': (context) => ForgotPasswordView(),
-        // '/cart': (context) => SignInScreen(),
+        '/category': (contet) => CategoryView(),
+        '/router': (context) => RouterView(),
       },
       initialRoute: '/splash',
     );

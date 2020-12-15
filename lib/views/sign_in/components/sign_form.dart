@@ -73,7 +73,7 @@ class _SignFormState extends State<SignForm> {
               //   // if all are valid then go to success screen
               //   Navigator.pushNamed(context, '/home');
               // }
-              Navigator.pushNamed(context, '/home');
+              Navigator.pushNamed(context, '/router');
             },
           ),
         ],
