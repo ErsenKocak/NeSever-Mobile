@@ -46,22 +46,22 @@ List<Product> demoProducts = [
     isPopular: true,
   ),
   Product(
-    id: 2,
-    images: [
-      "assets/images/george-orwell.jpg",
-    ],
-    colors: [
-      Color(0xFFF6625E),
-      Color(0xFF836DB8),
-      Color(0xFFDECB9C),
-      Colors.white,
-    ],
-    title: "1984 Siyah Kutulu Özel Baskı George Orwell Can Yayınları",
-    price: 50.99,
-    description: description,
-    rating: 4.1,
-    isPopular: true,
-  ),
+      id: 2,
+      images: [
+        "assets/images/george-orwell.jpg",
+      ],
+      colors: [
+        Color(0xFFF6625E),
+        Color(0xFF836DB8),
+        Color(0xFFDECB9C),
+        Colors.white,
+      ],
+      title: "1984 Siyah Kutulu Özel Baskı George Orwell Can Yayınları",
+      price: 50.99,
+      description: description,
+      rating: 4.1,
+      isPopular: true,
+      isFavourite: true),
   Product(
     id: 3,
     images: [
@@ -100,4 +100,4 @@ List<Product> demoProducts = [
 ];
 
 const String description =
-    "Wireless Controller for PS4™ gives you what you want in your gaming from over precision control your games to sharing …";
+    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.";

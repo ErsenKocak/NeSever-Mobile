@@ -4,6 +4,7 @@ import 'package:ne_sever_mobile/core/app/constants.dart';
 import 'package:ne_sever_mobile/models/Product.dart';
 
 import 'package:ne_sever_mobile/core/app/size_config.dart';
+import 'package:ne_sever_mobile/views/product-detail/view/product_detail_view.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({
@@ -23,11 +24,13 @@ class ProductCard extends StatelessWidget {
       child: SizedBox(
         width: getProportionateScreenWidth(width),
         child: GestureDetector(
-          // onTap: () => Navigator.pushNamed(
-          //   context,
-          //   DetailsScreen.routeName,
-          //   arguments: ProductDetailsArguments(product: product),
-          // ),
+          onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ProductDetailView(
+                  product: product,
+                ),
+              )),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

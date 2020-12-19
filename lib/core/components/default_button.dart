@@ -8,9 +8,11 @@ class DefaultButton extends StatelessWidget {
     Key key,
     this.text,
     this.press,
+    this.color,
   }) : super(key: key);
   final String text;
   final Function press;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -19,11 +21,12 @@ class DefaultButton extends StatelessWidget {
       height: getProportionateScreenHeight(56),
       child: FlatButton(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        color: kPrimaryColor,
+        color: color ?? kPrimaryColor,
         onPressed: press,
         child: Text(
           text,
           style: TextStyle(
+            fontWeight: FontWeight.bold,
             fontSize: getProportionateScreenWidth(18),
             color: Colors.white,
           ),

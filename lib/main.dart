@@ -3,8 +3,12 @@ import 'package:ne_sever_mobile/core/app/theme.dart';
 import 'package:ne_sever_mobile/core/init/locator/locator.dart';
 import 'package:ne_sever_mobile/views/category/view/category_view.dart';
 import 'package:ne_sever_mobile/views/forgot_password/view/forgot_password_view.dart';
+import 'package:ne_sever_mobile/views/friends/friends_view.dart';
+import 'package:ne_sever_mobile/views/gift_cart/view/gift_card_view.dart';
 import 'package:ne_sever_mobile/views/home/view/home_view.dart';
+import 'package:ne_sever_mobile/views/photos/photos_view.dart';
 import 'package:ne_sever_mobile/views/router_view/view/router_view.dart';
+import 'package:ne_sever_mobile/views/settings/settings_view.dart';
 import 'package:ne_sever_mobile/views/sign_in/view/sign_in_view.dart';
 import 'package:ne_sever_mobile/views/splash/view/splash_view.dart';
 
@@ -30,6 +34,10 @@ class MyApp extends StatelessWidget {
         '/forgot-password': (context) => ForgotPasswordView(),
         '/category': (contet) => CategoryView(),
         '/router': (context) => RouterView(),
+        '/settings': (context) => SettingsView(),
+        '/gift-cart': (context) => GiftCartView(),
+        '/photos': (context) => PhotosView(),
+        '/friends': (context) => FriendsView(),
       },
       initialRoute: '/splash',
     );
