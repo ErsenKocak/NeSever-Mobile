@@ -1,43 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:ne_sever_mobile/core/app/constants.dart';
 import 'package:ne_sever_mobile/core/app/size_config.dart';
+import 'package:ne_sever_mobile/models/Category.dart';
 
 class Categories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    List<Map<String, dynamic>> categories = [
-      {"icon": "assets/icons/Flash Icon.svg", "text": "Flash Gönderi"},
-      {"icon": "assets/icons/Bill Icon.svg", "text": "Kart"},
-      {"icon": "assets/icons/Game Icon.svg", "text": "Oyunlar"},
-      {"icon": "assets/icons/Gift Icon.svg", "text": "Günlük Kullanım"},
-      {"icon": "assets/icons/Discover.svg", "text": "Daha..."},
-    ];
     return Padding(
       padding: EdgeInsets.all(getProportionateScreenWidth(20)),
-      // child: Row(
-      //   children: [
-      //     ListView.builder(
-      //       scrollDirection: Axis.horizontal,
-      //       itemCount: categories.length,
-      //       itemBuilder: (BuildContext context, int index) {
-      //         return CategoryCard(
-      //           icon: categories[index]["icon"],
-      //           text: categories[index]["text"],
-      //           press: () {},
-      //         );
-      //       },
-      //     ),
-      //   ],
-      // ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: List.generate(
           categories.length,
           (index) => CategoryCard(
-            icon: categories[index]["icon"],
-            text: categories[index]["text"],
-            press: () {},
+            category: categories[index],
+            icon: categories[index].iconUrl,
+            text: categories[index].categoryText,
           ),
         ),
       ),
@@ -45,21 +25,27 @@ class Categories extends StatelessWidget {
   }
 }
 
-class CategoryCard extends StatelessWidget {
-  const CategoryCard({
-    Key key,
-    @required this.icon,
-    @required this.text,
-    @required this.press,
-  }) : super(key: key);
-
+class CategoryCard extends StatefulWidget {
+  Category category;
   final String icon, text;
-  final GestureTapCallback press;
+  final Function press;
+
+  CategoryCard({Key key, this.icon, this.text, this.press, this.category})
+      : super(key: key);
 
   @override
+  _CategoryCardState createState() => _CategoryCardState();
+}
+
+class _CategoryCardState extends State<CategoryCard> {
+  @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: press,
+    return InkWell(
+      onTap: () => {
+        setState(() {
+          widget.category.isActive = !widget.category.isActive;
+        })
+      },
       child: SizedBox(
         width: getProportionateScreenWidth(55),
         child: Column(
@@ -69,13 +55,17 @@ class CategoryCard extends StatelessWidget {
               height: getProportionateScreenWidth(55),
               width: getProportionateScreenWidth(55),
               decoration: BoxDecoration(
-                color: Color(0xFFFFECDF),
+                color:
+                    widget.category.isActive ? kPurpleColor : Color(0xFFFFECDF),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: SvgPicture.asset(icon),
+              child: SvgPicture.asset(
+                widget.icon,
+                color: kPrimaryColor,
+              ),
             ),
             SizedBox(height: 5),
-            Text(text, textAlign: TextAlign.center)
+            Text(widget.text, textAlign: TextAlign.center)
           ],
         ),
       ),

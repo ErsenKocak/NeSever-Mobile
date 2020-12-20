@@ -14,9 +14,11 @@ class HomeHeader extends StatelessWidget {
       padding:
           EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          SearchField(),
+          SearchField(
+            hintText: 'Hediye Ara',
+          ),
           IconBtnWithCounter(
             svgSrc: "assets/icons/Cart Icon.svg",
             // press: () => Navigator.pushNamed(context, CartScreen.routeName),

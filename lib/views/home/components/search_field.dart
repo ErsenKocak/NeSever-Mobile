@@ -3,10 +3,9 @@ import 'package:ne_sever_mobile/core/app/constants.dart';
 import 'package:ne_sever_mobile/core/app/size_config.dart';
 
 class SearchField extends StatelessWidget {
-  const SearchField({
-    Key key,
-  }) : super(key: key);
+  final String hintText;
 
+  const SearchField({Key key, @required this.hintText}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,7 +23,7 @@ class SearchField extends StatelessWidget {
             border: InputBorder.none,
             focusedBorder: InputBorder.none,
             enabledBorder: InputBorder.none,
-            hintText: "Hediye ara",
+            hintText: hintText,
             prefixIcon: Icon(Icons.search)),
       ),
     );

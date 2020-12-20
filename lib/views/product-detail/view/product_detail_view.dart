@@ -49,7 +49,6 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                     Column(
                       children: [
                         // ColorDots(product: widget.product),
-
                         TopRoundedContainer(
                           color: Color(0xFFF6F7F9),
                           child: Padding(
