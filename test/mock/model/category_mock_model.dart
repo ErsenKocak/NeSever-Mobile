@@ -1,12 +1,12 @@
 // To parse this JSON data, do
 //
-//     final categoryModel = categoryModelFromMap(jsonString);
+//     final categoryMockModel = categoryMockModelFromJson(jsonString);
 
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
-class CategoryModel {
-  CategoryModel({
+class CategoryMockModel {
+  CategoryMockModel({
     @required this.ustKategoriId,
     @required this.kategoriId,
     @required this.parametre,
@@ -24,12 +24,13 @@ class CategoryModel {
   final int sira;
   final bool anasayfadaGoster;
 
-  factory CategoryModel.fromJson(String str) =>
-      CategoryModel.fromMap(json.decode(str));
+  factory CategoryMockModel.fromRawJson(String str) =>
+      CategoryMockModel.fromJson(json.decode(str));
 
-  String toJson() => json.encode(toMap());
+  String toRawJson() => json.encode(toJson());
 
-  factory CategoryModel.fromMap(Map<String, dynamic> json) => CategoryModel(
+  factory CategoryMockModel.fromJson(Map<String, dynamic> json) =>
+      CategoryMockModel(
         ustKategoriId:
             json["UstKategoriId"] == null ? null : json["UstKategoriId"],
         kategoriId: json["KategoriId"],
@@ -40,7 +41,7 @@ class CategoryModel {
         anasayfadaGoster: json["AnasayfadaGoster"],
       );
 
-  Map<String, dynamic> toMap() => {
+  Map<String, dynamic> toJson() => {
         "UstKategoriId": ustKategoriId == null ? null : ustKategoriId,
         "KategoriId": kategoriId,
         "Parametre": parametre,

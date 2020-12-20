@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ne_sever_mobile/core/app/size_config.dart';
 
+const baseUrl = "http://webtestapi.nesever.com.tr/api/";
+
 const kPrimaryColor = Color(0xFFFF7643);
 const kBlueColor = Color(0xFF1A8CFF);
 const kPinkColor = Color(0xFFF43960);

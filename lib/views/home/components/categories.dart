@@ -4,29 +4,31 @@ import 'package:ne_sever_mobile/core/app/constants.dart';
 import 'package:ne_sever_mobile/core/app/size_config.dart';
 import 'package:ne_sever_mobile/models/Category.dart';
 
-class Categories extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(getProportionateScreenWidth(20)),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: List.generate(
-          categories.length,
-          (index) => CategoryCard(
-            category: categories[index],
-            icon: categories[index].iconUrl,
-            text: categories[index].categoryText,
-          ),
-        ),
-      ),
-    );
-  }
-}
+// class Categories extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Padding(
+//       padding: EdgeInsets.all(getProportionateScreenWidth(20)),
+//       child:
+//       //  Row(
+//       //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//       //   crossAxisAlignment: CrossAxisAlignment.start,
+//       //   children:
+//       //   // List.generate(
+//       //   //   categories.length,
+//       //   //   (index) => CategoryCard(
+//       //   //     category: categories[index],
+//       //   //     icon: categories[index].iconUrl,
+//       //   //     text: categories[index].categoryText,
+//       //   //   ),
+//       //   // ),
+//       // ),
+//     );
+//   }
+// }
 
 class CategoryCard extends StatefulWidget {
-  Category category;
+  CategoryModel category;
   final String icon, text;
   final Function press;
 
@@ -43,7 +45,7 @@ class _CategoryCardState extends State<CategoryCard> {
     return InkWell(
       onTap: () => {
         setState(() {
-          widget.category.isActive = !widget.category.isActive;
+          // widget.category.isActive = !widget.category.isActive;
         })
       },
       child: SizedBox(
@@ -55,8 +57,8 @@ class _CategoryCardState extends State<CategoryCard> {
               height: getProportionateScreenWidth(55),
               width: getProportionateScreenWidth(55),
               decoration: BoxDecoration(
-                color:
-                    widget.category.isActive ? kPurpleColor : Color(0xFFFFECDF),
+                color: kPrimaryColor,
+                //  Color(0xFFFFECDF),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: SvgPicture.asset(

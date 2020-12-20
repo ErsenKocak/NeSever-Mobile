@@ -25,7 +25,7 @@ class _HomeViewState extends State<HomeView> {
               SizedBox(height: getProportionateScreenHeight(20)),
               HomeHeader(),
               SizedBox(height: getProportionateScreenWidth(10)),
-              Categories(),
+              //Categories(),
               DiscountBanner(),
               SizedBox(height: getProportionateScreenWidth(10)),
               PopularProducts(),
