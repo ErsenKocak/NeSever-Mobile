@@ -16,8 +16,8 @@ class CategoryCubit extends Cubit<CategoryState> {
   void getCategories() async {
     try {
       emit(CategoryLoadingState());
-      final _response = await _categoryRepository.getCategories();
-      emit(CategoryLoadedState(_response));
+      final response = await _categoryRepository.getCategories();
+      emit(CategoryLoadedState(response));
     } on MyNetworkError catch (e) {
       emit(CategoryErrorState(e.errorMessage));
     }

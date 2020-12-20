@@ -57,8 +57,7 @@ class _CategoryCardState extends State<CategoryCard> {
               height: getProportionateScreenWidth(55),
               width: getProportionateScreenWidth(55),
               decoration: BoxDecoration(
-                color: kPrimaryColor,
-                //  Color(0xFFFFECDF),
+                color: Color(0xFFFFECDF),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: SvgPicture.asset(

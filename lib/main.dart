@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ne_sever_mobile/bloc/category/cubit/category_cubit.dart';
 import 'package:ne_sever_mobile/core/app/theme.dart';
 import 'package:ne_sever_mobile/core/init/locator/locator.dart';
 import 'package:ne_sever_mobile/views/category/view/category_view.dart';
@@ -22,24 +24,28 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Ne Sever ?',
-      theme: theme(),
-      routes: {
-        '/splash': (context) => SplashScreen(),
-        '/signUp': (context) => SignUpView(),
-        '/signIn': (context) => SignInView(),
-        '/home': (context) => HomeView(),
-        '/forgot-password': (context) => ForgotPasswordView(),
-        '/category': (contet) => CategoryView(),
-        '/router': (context) => RouterView(),
-        '/settings': (context) => SettingsView(),
-        '/gift-cart': (context) => GiftCartView(),
-        '/photos': (context) => PhotosView(),
-        '/friends': (context) => FriendsView(),
-      },
-      initialRoute: '/splash',
-    );
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider<CategoryCubit>(create: (context) => CategoryCubit()),
+        ],
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Ne Sever ?',
+          theme: theme(),
+          routes: {
+            '/splash': (context) => SplashScreen(),
+            '/signUp': (context) => SignUpView(),
+            '/signIn': (context) => SignInView(),
+            '/home': (context) => HomeView(),
+            '/forgot-password': (context) => ForgotPasswordView(),
+            '/category': (contet) => CategoryView(),
+            '/router': (context) => RouterView(),
+            '/settings': (context) => SettingsView(),
+            '/gift-cart': (context) => GiftCartView(),
+            '/photos': (context) => PhotosView(),
+            '/friends': (context) => FriendsView(),
+          },
+          initialRoute: '/splash',
+        ));
   }
 }

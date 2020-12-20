@@ -12,9 +12,9 @@ class CategoryLoadingState extends CategoryState {
 }
 
 class CategoryLoadedState extends CategoryState {
-  final List<CategoryModel> _categoryList;
+  final List<CategoryModel> categoryList;
 
-  CategoryLoadedState(this._categoryList);
+  CategoryLoadedState(this.categoryList);
 }
 
 class CategoryErrorState extends CategoryState {
