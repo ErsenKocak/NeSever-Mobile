@@ -1,28 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:ne_sever_mobile/bloc/category/cubit/category_cubit.dart';
 import 'package:ne_sever_mobile/core/app/constants.dart';
 import 'package:ne_sever_mobile/core/app/size_config.dart';
 import 'package:ne_sever_mobile/models/Category.dart';
 
 // class Categories extends StatelessWidget {
+
 //   @override
 //   Widget build(BuildContext context) {
 //     return Padding(
 //       padding: EdgeInsets.all(getProportionateScreenWidth(20)),
-//       child:
-//       //  Row(
-//       //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//       //   crossAxisAlignment: CrossAxisAlignment.start,
-//       //   children:
-//       //   // List.generate(
-//       //   //   categories.length,
-//       //   //   (index) => CategoryCard(
-//       //   //     category: categories[index],
-//       //   //     icon: categories[index].iconUrl,
-//       //   //     text: categories[index].categoryText,
-//       //   //   ),
-//       //   // ),
-//       // ),
+//       child: Row(
+//         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: List.generate(
+//           categories.length,
+//           (index) => CategoryCard(
+//             category: categories[index],
+//             icon: categories[index].iconUrl,
+//             text: categories[index].categoryText,
+//           ),
+//         ),
+//       ),
 //     );
 //   }
 // }
@@ -54,8 +55,8 @@ class _CategoryCardState extends State<CategoryCard> {
           children: [
             Container(
               padding: EdgeInsets.all(getProportionateScreenWidth(15)),
-              height: getProportionateScreenWidth(55),
-              width: getProportionateScreenWidth(55),
+              height: getProportionateScreenWidth(50),
+              width: getProportionateScreenWidth(50),
               decoration: BoxDecoration(
                 color: Color(0xFFFFECDF),
                 borderRadius: BorderRadius.circular(10),

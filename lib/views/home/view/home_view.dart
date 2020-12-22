@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ne_sever_mobile/bloc/category/cubit/category_cubit.dart';
 import 'package:ne_sever_mobile/core/app/size_config.dart';
 import 'package:ne_sever_mobile/core/widgets/custom_buttom_navigation_bar.dart';
 import 'package:ne_sever_mobile/views/home/components/categories.dart';
@@ -26,6 +28,10 @@ class _HomeViewState extends State<HomeView> {
               HomeHeader(),
               SizedBox(height: getProportionateScreenWidth(10)),
               //Categories(),
+              SizedBox(
+                height: getProportionateScreenHeight(160),
+                child: buildCategoriesRow(),
+              ),
               DiscountBanner(),
               SizedBox(height: getProportionateScreenWidth(10)),
               PopularProducts(),
@@ -36,6 +42,58 @@ class _HomeViewState extends State<HomeView> {
           ),
         ),
       ),
+    );
+  }
+
+  Row buildCategoriesRow() {
+    return Row(
+      children: [
+        BlocConsumer<CategoryCubit, CategoryState>(
+          listener: (context, state) {
+            if (state is CategoryErrorState) {
+              Scaffold.of(context)
+                  .showSnackBar(SnackBar(content: Text(state.errorMessage)));
+            }
+          },
+          builder: (context, state) {
+            if (state is CategoryInitialState) {
+              context.bloc<CategoryCubit>().getCategories();
+              return Center(
+                child: Text(''),
+              );
+            } else if (state is CategoryLoadingState) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (state is CategoryLoadedState) {
+              return Expanded(
+                flex: 2,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: state.categoryList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    if (state.categoryList[index].ustKategoriId == null) {
+                      return Padding(
+                        padding: EdgeInsets.all(2),
+                        child: CategoryCard(
+                          category: state.categoryList[index],
+                          icon: 'assets/icons/book.svg',
+                          text: state.categoryList[index].kategoriAdi,
+                          press: (isActive) {
+                            // print(categories[index].categoryText);
+                          },
+                        ),
+                      );
+                    } else {
+                      return SizedBox();
+                    }
+                  },
+                ),
+              );
+            }
+          },
+        ),
+      ],
     );
   }
 }
