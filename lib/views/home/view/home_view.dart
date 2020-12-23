@@ -122,7 +122,7 @@ class _HomeViewState extends State<HomeView> {
                           category: state.categoryList[index],
                           icon: 'assets/icons/book.svg',
                           text: state.categoryList[index].kategoriAdi,
-                          press: (isActive) {
+                          press: () {
                             // print(categories[index].categoryText);
                           },
                         ),

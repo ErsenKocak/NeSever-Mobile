@@ -72,7 +72,7 @@ class _SplashScreenState extends State<SplashScreen> {
                           ? DefaultButton(
                               text: "Devam et",
                               press: () {
-                                Navigator.pushNamed(context, '/signIn');
+                                Navigator.pushNamed(context, '/router');
                               },
                             )
                           : SizedBox(),
