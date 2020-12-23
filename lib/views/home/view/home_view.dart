@@ -24,20 +24,63 @@ class _HomeViewState extends State<HomeView> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: getProportionateScreenHeight(20)),
-              HomeHeader(),
+              // SizedBox(height: getProportionateScreenHeight(20)),
+              // HomeHeader(),
+              // SizedBox(height: getProportionateScreenWidth(10)),
+              // SizedBox(
+              //   height: getProportionateScreenHeight(160),
+              //   child: buildCategoriesRow(),
+              // ),
+              // DiscountBanner(),
+              // SizedBox(height: getProportionateScreenWidth(10)),
+              // PopularProducts(),
+              // SizedBox(height: getProportionateScreenWidth(30)),
+              // SpecialOffers(),
+              // SizedBox(height: getProportionateScreenWidth(30)),
+
+              SizedBox(
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: HomeHeader(),
+                    ),
+                  ],
+                ),
+              ),
               SizedBox(height: getProportionateScreenWidth(10)),
-              //Categories(),
               SizedBox(
                 height: getProportionateScreenHeight(160),
                 child: buildCategoriesRow(),
               ),
-              DiscountBanner(),
+              SizedBox(
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: DiscountBanner(),
+                    ),
+                  ],
+                ),
+              ),
               SizedBox(height: getProportionateScreenWidth(10)),
-              PopularProducts(),
-              SizedBox(height: getProportionateScreenWidth(30)),
-              SpecialOffers(),
-              SizedBox(height: getProportionateScreenWidth(30)),
+              SizedBox(
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: PopularProducts(),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: getProportionateScreenWidth(10)),
+              SizedBox(
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: SpecialOffers(),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
