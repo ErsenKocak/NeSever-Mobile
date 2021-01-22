@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ne_sever_mobile/bloc/category/cubit/category_cubit.dart';
 import 'package:ne_sever_mobile/core/app/size_config.dart';
+import 'package:ne_sever_mobile/core/components/image_slider.dart';
 import 'package:ne_sever_mobile/core/widgets/custom_buttom_navigation_bar.dart';
 import 'package:ne_sever_mobile/views/home/components/categories.dart';
 import 'package:ne_sever_mobile/views/home/components/discount_banner.dart';
@@ -52,6 +53,7 @@ class _HomeViewState extends State<HomeView> {
                 height: getProportionateScreenHeight(160),
                 child: buildCategoriesRow(),
               ),
+              SizedBox(child: ImageSliderWidget()),
               SizedBox(
                 child: Row(
                   children: [

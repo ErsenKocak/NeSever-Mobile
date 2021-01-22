@@ -1,6 +1,7 @@
 import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:logger/logger.dart';
 import 'package:ne_sever_mobile/bloc/category/cubit/category_cubit.dart';
 import 'package:ne_sever_mobile/core/app/constants.dart';
 import 'package:ne_sever_mobile/views/home/components/categories.dart';
@@ -16,12 +17,10 @@ class CategoryView extends StatefulWidget {
 }
 
 class _CategoryViewState extends State<CategoryView> {
-  final GlobalKey<ExpansionTileCardState> cardB = new GlobalKey();
-
   bool isActive = false;
   CategoryModel selectedCategory;
   CategoryModel selectedSubCategory;
-
+  String dropdownValue = 'One';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,33 +36,29 @@ class _CategoryViewState extends State<CategoryView> {
               ),
             ),
             Divider(),
-            Expanded(
-              child: BlocConsumer<CategoryCubit, CategoryState>(
-                listener: (context, state) {
-                  if (state is CategoryErrorState) {
-                    Scaffold.of(context).showSnackBar(
-                        SnackBar(content: Text(state.errorMessage)));
-                  }
-                },
-                builder: (context, state) {
-                  if (state is CategoryInitialState) {
-                    context.bloc<CategoryCubit>().getCategories();
-                    return Center(
-                      child: Text(''),
-                    );
-                  } else if (state is CategoryLoadingState) {
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  } else if (state is CategoryLoadedState) {
-                    return Row(
-                      children: [
-                        Expanded(flex: 2, child: buildCategoryListView(state)),
-                      ],
-                    );
-                  }
-                },
-              ),
+            BlocConsumer<CategoryCubit, CategoryState>(
+              listener: (context, state) {
+                if (state is CategoryErrorState) {
+                  Scaffold.of(context).showSnackBar(
+                      SnackBar(content: Text(state.errorMessage)));
+                }
+              },
+              // ignore: missing_return
+              builder: (context, state) {
+                if (state is CategoryInitialState) {
+                  // context.bloc<CategoryCubit>().getCategories();
+                  context.read<CategoryCubit>().getCategories();
+                  return Center(
+                    child: Text(''),
+                  );
+                } else if (state is CategoryLoadingState) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else if (state is CategoryLoadedState) {
+                  return Expanded(flex: 2, child: buildCategoryListView(state));
+                }
+              },
             ),
           ],
         ),
@@ -76,10 +71,7 @@ class _CategoryViewState extends State<CategoryView> {
       children: [
         Expanded(
           flex: 2,
-          child:
-              //buildCategoryList(state),
-
-              ListView.builder(
+          child: ListView.builder(
             itemCount: state.categoryList.length,
             itemBuilder: (BuildContext context, int index) {
               if (state.categoryList[index].ustKategoriId == null) {
@@ -102,11 +94,10 @@ class _CategoryViewState extends State<CategoryView> {
           ),
         ),
         Expanded(
-          flex: 8,
-          child: Column(
-            children: [Expanded(child: buildExpansionTileList(state))],
-          ),
-        ),
+            flex: 8,
+            child: selectedCategory != null
+                ? buildExpansionTileList(state)
+                : Text('asdasd')),
       ],
     );
   }
@@ -125,7 +116,6 @@ class _CategoryViewState extends State<CategoryView> {
                     baseColor: kLightPrimaryColor,
                     expandedColor: kLightPrimaryColor,
                     onExpansionChanged: (value) {
-                      print(e.kategoriAdi);
                       setState(() {
                         selectedSubCategory = e;
                       });
@@ -146,18 +136,25 @@ class _CategoryViewState extends State<CategoryView> {
                             horizontal: 8.0,
                             vertical: 8.0,
                           ),
-                          child: ListView.builder(
-                            itemCount: state.categoryList.length,
-                            itemBuilder: (context, index) {
-                              if (selectedSubCategory != null &&
-                                  state.categoryList[index].ustKategoriId ==
-                                      selectedSubCategory.kategoriId) {
-                                return Text(
-                                    state.categoryList[index].kategoriAdi);
-                              } else {
-                                return SizedBox();
-                              }
-                            },
+                          child: Column(
+                            children: [
+                              // Expanded(
+                              //   child: ListView.builder(
+                              //     itemCount: state.categoryList.length,
+                              //     itemBuilder: (context, index) {
+                              //       if (selectedSubCategory != null &&
+                              //           state.categoryList[index]
+                              //                   .ustKategoriId ==
+                              //               selectedSubCategory.kategoriId) {
+                              //         return Text(state
+                              //             .categoryList[index].kategoriAdi);
+                              //       } else {
+                              //         return Text('asdasd');
+                              //       }
+                              //     },
+                              //   ),
+                              // ),
+                            ],
                           ),
                         ),
                       ),
@@ -175,44 +172,36 @@ class _CategoryViewState extends State<CategoryView> {
             })
         .toList();
 
-    return SingleChildScrollView(
-      child: Column(
-        children: expansionTileList,
-      ),
-    );
+    if (expansionTileList.length > 0) {
+      return SingleChildScrollView(
+        child: Column(
+          children: expansionTileList,
+        ),
+      );
+    } else {
+      return SizedBox();
+    }
   }
 
-  buildCategoryList(CategoryLoadedState state) {
-    final categoryWidgetList = List<Widget>();
+  buildExpansionTileSubCategoryList(List<CategoryModel> categoryList) {
+    print("buildExpansionTileSubCategoryList Çalıştı");
 
-    state.categoryList
-        .map(
-          (category) => {
-            if (category.ustKategoriId == null)
-              {
-                categoryWidgetList.add(
-                  CategoryCard(
-                    key: Key('counter-${category.kategoriId}'),
-                    category: category,
-                    icon: 'assets/icons/book.svg',
-                    text: category.kategoriAdi,
-                    press: () {
-                      setState(() {
-                        selectedCategory = category;
-                      });
-                      print(selectedCategory.kategoriAdi);
-                    },
-                  ),
-                )
-              },
-          },
-        )
-        .toList();
+    var expansionTileSubCategoryList = List<Widget>();
+    for (CategoryModel category in categoryList) {
+      if (selectedSubCategory != null &&
+          category.ustKategoriId == selectedSubCategory.kategoriId) {
+        print(category.kategoriAdi);
+        expansionTileSubCategoryList.add(Text(category.kategoriAdi));
+      } else {
+        //print('ife girmedi');
+        //Text('asdasd')
+      }
+    }
 
-    return SingleChildScrollView(
-      child: Container(
+    return Expanded(
+      child: SingleChildScrollView(
         child: Column(
-          children: categoryWidgetList,
+          children: expansionTileSubCategoryList,
         ),
       ),
     );
