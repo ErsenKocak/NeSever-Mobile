@@ -1,18 +1,18 @@
-class Banner {
+class BannerModel {
   int bannerId;
   String aciklama1;
   String aciklama2;
   String link;
   String resimBase64;
 
-  Banner(
+  BannerModel(
       {this.bannerId,
       this.aciklama1,
       this.aciklama2,
       this.link,
       this.resimBase64});
 
-  Banner.fromJson(Map<String, dynamic> json) {
+  BannerModel.fromJson(Map<String, dynamic> json) {
     bannerId = json['BannerId'];
     aciklama1 = json['Aciklama1'];
     aciklama2 = json['Aciklama2'];

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ne_sever_mobile/bloc/banner/cubit/banner_cubit.dart';
 import 'package:ne_sever_mobile/bloc/category/cubit/category_cubit.dart';
 import 'package:ne_sever_mobile/core/app/theme.dart';
 import 'package:ne_sever_mobile/core/init/locator/locator.dart';
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
         providers: [
           BlocProvider<CategoryCubit>(create: (context) => CategoryCubit()),
+          BlocProvider<BannerCubit>(create: (context) => BannerCubit()),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,

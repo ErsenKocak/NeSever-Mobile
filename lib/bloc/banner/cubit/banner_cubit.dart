@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:ne_sever_mobile/core/app/network_error.dart';
 import 'package:ne_sever_mobile/core/init/locator/locator.dart';
-import 'package:ne_sever_mobile/models/Banner.dart';
+import 'package:ne_sever_mobile/models/BannerModel.dart';
 import 'package:ne_sever_mobile/repository/banner_repository.dart';
 
 part 'banner_state.dart';

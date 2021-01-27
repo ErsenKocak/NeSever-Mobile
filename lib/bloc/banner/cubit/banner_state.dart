@@ -10,9 +10,9 @@ class BannerLoadingState extends BannerState {
 }
 
 class BannerLoadedState extends BannerState {
-  final List<Banner> categoryList;
+  final List<BannerModel> bannerCategoryList;
 
-  BannerLoadedState(this.categoryList);
+  BannerLoadedState(this.bannerCategoryList);
 }
 
 class BannerErrorState extends BannerState {

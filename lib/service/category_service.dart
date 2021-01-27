@@ -17,7 +17,7 @@ class CategoryService {
           'Urun/KategoriIcerikListGetir?AnasayfadaGoster=${isHomePage}');
 
       if (_response.statusCode == 200) {
-        _logger.w(_response.data);
+        //_logger.w(_response.data);
         return (_response.data as List)
             .map((x) => CategoryModel.fromJson(x))
             .toList();
