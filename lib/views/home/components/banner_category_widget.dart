@@ -33,22 +33,6 @@ class CategoryBannerWidget extends StatelessWidget {
       ],
     );
   }
-
-  buildBannerCategoryCardList() {
-    final bannerCategoryWidgetList = List<Widget>();
-    bannerCategoryList.map((bannerCategory) => {
-          bannerCategoryWidgetList.add(
-            CategoryBannerCard(
-              imgUrl: "https://www.nesever.com.tr/Uploads/Banner/banner_5.jpg",
-              onPress: () {
-                print('Category Banner Tıklandı');
-              },
-            ),
-          )
-        });
-
-    return bannerCategoryWidgetList;
-  }
 }
 
 class CategoryBannerCard extends StatelessWidget {
