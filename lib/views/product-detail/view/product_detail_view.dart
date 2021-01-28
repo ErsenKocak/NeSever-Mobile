@@ -23,6 +23,8 @@ class ProductDetailView extends StatefulWidget {
 class _ProductDetailViewState extends State<ProductDetailView> {
   @override
   Widget build(BuildContext context) {
+    print(widget.trendWomanProduct.urunId);
+
     return Scaffold(
       appBar: AppBarWidget(
           title: AppBarTitleTextWidget(

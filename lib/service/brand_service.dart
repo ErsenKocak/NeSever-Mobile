@@ -3,24 +3,21 @@ import 'package:ne_sever_mobile/core/app/constants.dart';
 import 'package:ne_sever_mobile/core/app/network_error.dart';
 import 'package:ne_sever_mobile/core/init/locator/locator.dart';
 import 'package:logger/logger.dart';
-import 'package:ne_sever_mobile/models/BannerCategory.dart';
+import 'package:ne_sever_mobile/models/Brand.dart';
 
-class BannerCategoryService {
-  Future<List<BannerCategory>> getCategoryBanners() async {
+class BrandService {
+  Future<List<Brand>> getBrands() async {
     final _logger = locator<Logger>();
     final _options = locator<BaseOptions>();
     final _dio = Dio();
     _dio.options = _options;
 
     try {
-      final _response =
-          await _dio.get(baseUrl + 'Sayfa/KategoriBannerIcerikListGetir');
+      final _response = await _dio.get(baseUrl + 'Urun/MarkaIcerikListGetir');
 
       if (_response.statusCode == 200) {
         //_logger.w(_response.data);
-        return (_response.data as List)
-            .map((x) => BannerCategory.fromJson(x))
-            .toList();
+        return (_response.data as List).map((x) => Brand.fromJson(x)).toList();
       } else {
         throw MyNetworkError('Bağlantı Sağlanamadı !',
             responseStatusCode: _response.statusCode.toString());

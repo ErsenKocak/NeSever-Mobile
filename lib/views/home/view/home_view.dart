@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
-import 'package:ne_sever_mobile/bloc/banner/cubit/banner_cubit.dart';
-import 'package:ne_sever_mobile/bloc/banner_category/categorybanner_cubit.dart';
-import 'package:ne_sever_mobile/bloc/category/cubit/category_cubit.dart';
-import 'package:ne_sever_mobile/bloc/trend_man_product/trend_man_product_cubit.dart';
-import 'package:ne_sever_mobile/bloc/trend_woman_product/trend_woman_product_cubit.dart';
-import 'package:ne_sever_mobile/core/app/size_config.dart';
-import 'package:ne_sever_mobile/core/components/image_slider.dart';
-import 'package:ne_sever_mobile/core/components/trend_woman_product_widget.dart';
-import 'package:ne_sever_mobile/core/init/locator/locator.dart';
-import 'package:ne_sever_mobile/core/widgets/custom_buttom_navigation_bar.dart';
-import 'package:ne_sever_mobile/views/home/components/banner_category_widget.dart';
-import 'package:ne_sever_mobile/views/home/components/categories.dart';
-import 'package:ne_sever_mobile/views/home/components/discount_banner.dart';
-import 'package:ne_sever_mobile/views/home/components/home_header.dart';
-import 'package:ne_sever_mobile/views/home/components/popular_product.dart';
-import 'package:ne_sever_mobile/views/home/components/special_offers.dart';
+import 'package:ne_sever_mobile/bloc/brand/brand_cubit.dart';
+import 'package:ne_sever_mobile/core/components/brand_widget.dart';
+
+import '../../../bloc/banner/cubit/banner_cubit.dart';
+import '../../../bloc/banner_category/categorybanner_cubit.dart';
+import '../../../bloc/category/category_cubit.dart';
+import '../../../bloc/trend_man_product/trend_man_product_cubit.dart';
+import '../../../bloc/trend_woman_product/trend_woman_product_cubit.dart';
+import '../../../core/app/size_config.dart';
+import '../../../core/components/image_slider.dart';
+import '../../../core/components/trend_woman_product_widget.dart';
+import '../components/banner_category_widget.dart';
+import '../components/categories.dart';
+import '../components/discount_banner.dart';
+import '../components/home_header.dart';
+import '../components/special_offers.dart';
 
 class HomeView extends StatefulWidget {
   HomeView({Key key}) : super(key: key);
@@ -90,10 +90,50 @@ class _HomeViewState extends State<HomeView> {
                   child: Column(
                 children: [buildTrendManProducts()],
               )),
+              SizedBox(
+                  child: Column(
+                children: [buildBrands()],
+              )),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  buildBrands() {
+    return BlocConsumer<BrandCubit, BrandState>(
+      listener: (context, state) {
+        if (state is BrandErrorState) {
+          Scaffold.of(context)
+              .showSnackBar(SnackBar(content: Text(state.errorMessage)));
+        }
+      },
+      // ignore: missing_return
+      builder: (context, state) {
+        if (state is BrandInitial) {
+          context.bloc<BrandCubit>().getBrands();
+          return Center(
+            child: SizedBox(),
+          );
+        } else if (state is BrandLoadingState) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if (state is BrandLoadedState) {
+          //Logger().w(state.brandList);
+
+          return BrandWidget(
+            brandList: state.brandList,
+            sectionTitle: "Marka",
+          );
+        } else if (state is BrandErrorState) {
+          Scaffold.of(context)
+              .showSnackBar(SnackBar(content: Text(state.errorMessage)));
+
+          return Text('');
+        }
+      },
     );
   }
 

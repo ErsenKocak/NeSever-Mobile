@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ne_sever_mobile/bloc/banner/cubit/banner_cubit.dart';
-import 'package:ne_sever_mobile/bloc/banner_category/categorybanner_cubit.dart';
-import 'package:ne_sever_mobile/bloc/category/cubit/category_cubit.dart';
-import 'package:ne_sever_mobile/bloc/trend_woman_product/trend_woman_product_cubit.dart';
-import 'package:ne_sever_mobile/core/app/theme.dart';
-import 'package:ne_sever_mobile/core/init/locator/locator.dart';
-import 'package:ne_sever_mobile/views/category/view/category_view.dart';
-import 'package:ne_sever_mobile/views/forgot_password/view/forgot_password_view.dart';
-import 'package:ne_sever_mobile/views/friends/friends_view.dart';
-import 'package:ne_sever_mobile/views/gift_cart/view/gift_card_view.dart';
-import 'package:ne_sever_mobile/views/home/view/home_view.dart';
-import 'package:ne_sever_mobile/views/photos/photos_view.dart';
-import 'package:ne_sever_mobile/views/router_view/view/router_view.dart';
-import 'package:ne_sever_mobile/views/settings/settings_view.dart';
-import 'package:ne_sever_mobile/views/sign_in/view/sign_in_view.dart';
-import 'package:ne_sever_mobile/views/splash/view/splash_view.dart';
-
+import 'package:ne_sever_mobile/bloc/brand/brand_cubit.dart';
+import 'bloc/banner/cubit/banner_cubit.dart';
+import 'bloc/banner_category/categorybanner_cubit.dart';
+import 'bloc/trend_woman_product/trend_woman_product_cubit.dart';
+import 'core/app/theme.dart';
+import 'core/init/locator/locator.dart';
+import 'views/category/view/category_view.dart';
+import 'views/forgot_password/view/forgot_password_view.dart';
+import 'views/friends/friends_view.dart';
+import 'views/gift_cart/view/gift_card_view.dart';
+import 'views/home/view/home_view.dart';
+import 'views/photos/photos_view.dart';
+import 'views/router_view/view/router_view.dart';
+import 'views/settings/settings_view.dart';
+import 'views/sign_in/view/sign_in_view.dart';
+import 'views/splash/view/splash_view.dart';
+import 'bloc/category/category_cubit.dart';
 import 'bloc/trend_man_product/trend_man_product_cubit.dart';
 import 'views/sign_up/view/sign_up_view.dart';
 
@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
         providers: [
           BlocProvider<CategoryCubit>(create: (context) => CategoryCubit()),
           BlocProvider<BannerCubit>(create: (context) => BannerCubit()),
+          BlocProvider<BrandCubit>(create: (context) => BrandCubit()),
           BlocProvider<CategorybannerCubit>(
               create: (context) => CategorybannerCubit()),
           BlocProvider<TrendWomanProductCubit>(

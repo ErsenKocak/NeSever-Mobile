@@ -1,12 +1,11 @@
 import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:logger/logger.dart';
-import 'package:ne_sever_mobile/bloc/category/cubit/category_cubit.dart';
-import 'package:ne_sever_mobile/core/app/constants.dart';
-import 'package:ne_sever_mobile/views/home/components/categories.dart';
 
+import '../../../bloc/category/category_cubit.dart';
+import '../../../core/app/constants.dart';
 import '../../../models/Category.dart';
+import '../../home/components/categories.dart';
 import '../../home/components/search_field.dart';
 
 class CategoryView extends StatefulWidget {
