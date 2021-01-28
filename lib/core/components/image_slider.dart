@@ -11,7 +11,7 @@ class ImageSliderWidget extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return buildBannerCategoryImages(context);
+    return buildBannerImages(context);
   }
 
   imageFromBase64String(BuildContext context, String base64Image) {
@@ -25,7 +25,7 @@ class ImageSliderWidget extends StatelessWidget {
     );
   }
 
-  buildBannerCategoryImages(BuildContext context) {
+  buildBannerImages(BuildContext context) {
     final List<Widget> imageSliders = bannerCategoryList
         .map((item) => InkWell(
               onTap: () => launchURL(item.link),

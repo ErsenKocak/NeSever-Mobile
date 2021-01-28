@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ne_sever_mobile/bloc/banner/cubit/banner_cubit.dart';
+import 'package:ne_sever_mobile/bloc/banner_category/categorybanner_cubit.dart';
 import 'package:ne_sever_mobile/bloc/category/cubit/category_cubit.dart';
 import 'package:ne_sever_mobile/core/app/size_config.dart';
 import 'package:ne_sever_mobile/core/components/image_slider.dart';
 import 'package:ne_sever_mobile/core/widgets/custom_buttom_navigation_bar.dart';
+import 'package:ne_sever_mobile/views/home/components/banner_category_widget.dart';
 import 'package:ne_sever_mobile/views/home/components/categories.dart';
 import 'package:ne_sever_mobile/views/home/components/discount_banner.dart';
 import 'package:ne_sever_mobile/views/home/components/home_header.dart';
@@ -26,20 +28,6 @@ class _HomeViewState extends State<HomeView> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              // SizedBox(height: getProportionateScreenHeight(20)),
-              // HomeHeader(),
-              // SizedBox(height: getProportionateScreenWidth(10)),
-              // SizedBox(
-              //   height: getProportionateScreenHeight(160),
-              //   child: buildCategoriesRow(),
-              // ),
-              // DiscountBanner(),
-              // SizedBox(height: getProportionateScreenWidth(10)),
-              // PopularProducts(),
-              // SizedBox(height: getProportionateScreenWidth(30)),
-              // SpecialOffers(),
-              // SizedBox(height: getProportionateScreenWidth(30)),
-
               SizedBox(
                 child: Row(
                   children: [
@@ -54,7 +42,7 @@ class _HomeViewState extends State<HomeView> {
                 height: getProportionateScreenHeight(160),
                 child: buildCategoriesRow(),
               ),
-              SizedBox(child: buildBannerCategories()),
+              SizedBox(child: buildBanners()),
               SizedBox(
                 child: Row(
                   children: [
@@ -84,6 +72,11 @@ class _HomeViewState extends State<HomeView> {
                   ],
                 ),
               ),
+              SizedBox(height: getProportionateScreenWidth(10)),
+              SizedBox(
+                  child: Column(
+                children: [buildCategoryBanners()],
+              )),
             ],
           ),
         ),
@@ -91,7 +84,40 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 
-  buildBannerCategories() {
+  buildCategoryBanners() {
+    return BlocConsumer<CategorybannerCubit, CategoryBannerState>(
+      listener: (context, state) {
+        if (state is CategoryBannerErrorState) {
+          Scaffold.of(context)
+              .showSnackBar(SnackBar(content: Text(state.errorMessage)));
+        }
+      },
+      // ignore: missing_return
+      builder: (context, state) {
+        if (state is CategoryBannerInitial) {
+          context.bloc<CategorybannerCubit>().getCategoryBanners();
+          return Center(
+            child: SizedBox(),
+          );
+        } else if (state is CategoryBannerLoadingState) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if (state is CategoryBannerLoadedState) {
+          return CategoryBannerWidget(
+            bannerCategoryList: state.bannerCategoryList,
+          );
+        } else if (state is CategoryBannerErrorState) {
+          Scaffold.of(context)
+              .showSnackBar(SnackBar(content: Text(state.errorMessage)));
+
+          return Text('');
+        }
+      },
+    );
+  }
+
+  buildBanners() {
     return BlocConsumer<BannerCubit, BannerState>(
       listener: (context, state) {
         if (state is BannerErrorState) {
