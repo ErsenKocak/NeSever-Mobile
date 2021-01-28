@@ -8,7 +8,7 @@ import 'package:ne_sever_mobile/repository/trend_woman_product_repository.dart';
 part 'trend_woman_product_state.dart';
 
 class TrendWomanProductCubit extends Cubit<TrendWomanProductState> {
-  final _trendWomanProductRepository = locator<ProductRepository>();
+  final _trendWomanProductRepository = locator<TrendWomanProductRepository>();
   TrendWomanProductCubit() : super(TrendWomanProductInitial());
 
   void getTrendWomanProducts() async {

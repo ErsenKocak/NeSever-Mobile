@@ -5,10 +5,12 @@ import 'package:ne_sever_mobile/core/app/constants.dart';
 import 'package:ne_sever_mobile/repository/banner_category_repository.dart';
 import 'package:ne_sever_mobile/repository/banner_repository.dart';
 import 'package:ne_sever_mobile/repository/category_repository.dart';
+import 'package:ne_sever_mobile/repository/trend_man_product_repository.dart';
 import 'package:ne_sever_mobile/repository/trend_woman_product_repository.dart';
 import 'package:ne_sever_mobile/service/banner_category_service.dart';
 import 'package:ne_sever_mobile/service/banner_service.dart';
 import 'package:ne_sever_mobile/service/category_service.dart';
+import 'package:ne_sever_mobile/service/trend_man_product_service.dart';
 import 'package:ne_sever_mobile/service/trend_woman_product_service.dart';
 import 'package:ne_sever_mobile/views/router_view/viewmodel/router_view_model.dart';
 
@@ -21,8 +23,10 @@ void setupLocator() {
   locator.registerLazySingleton(() => BannerService());
   locator.registerLazySingleton(() => BannerCategoryRepository());
   locator.registerLazySingleton(() => BannerCategoryService());
-  locator.registerLazySingleton(() => ProductRepository());
-  locator.registerLazySingleton(() => ProductService());
+  locator.registerLazySingleton(() => TrendWomanProductRepository());
+  locator.registerLazySingleton(() => TrendWomanProductService());
+  locator.registerLazySingleton(() => TrendManProductRepository());
+  locator.registerLazySingleton(() => TrendManProductService());
   locator.registerLazySingleton(() => RouterViewModel());
   locator.registerLazySingleton(() => Dio());
   locator.registerLazySingleton(() => Logger());

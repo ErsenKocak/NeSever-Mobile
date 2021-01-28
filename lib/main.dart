@@ -17,6 +17,7 @@ import 'package:ne_sever_mobile/views/settings/settings_view.dart';
 import 'package:ne_sever_mobile/views/sign_in/view/sign_in_view.dart';
 import 'package:ne_sever_mobile/views/splash/view/splash_view.dart';
 
+import 'bloc/trend_man_product/trend_man_product_cubit.dart';
 import 'views/sign_up/view/sign_up_view.dart';
 
 void main() {
@@ -35,6 +36,8 @@ class MyApp extends StatelessWidget {
               create: (context) => CategorybannerCubit()),
           BlocProvider<TrendWomanProductCubit>(
               create: (context) => TrendWomanProductCubit()),
+          BlocProvider<TrendManProductCubit>(
+              create: (context) => TrendManProductCubit()),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,

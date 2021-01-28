@@ -4,6 +4,7 @@ import 'package:logger/logger.dart';
 import 'package:ne_sever_mobile/bloc/banner/cubit/banner_cubit.dart';
 import 'package:ne_sever_mobile/bloc/banner_category/categorybanner_cubit.dart';
 import 'package:ne_sever_mobile/bloc/category/cubit/category_cubit.dart';
+import 'package:ne_sever_mobile/bloc/trend_man_product/trend_man_product_cubit.dart';
 import 'package:ne_sever_mobile/bloc/trend_woman_product/trend_woman_product_cubit.dart';
 import 'package:ne_sever_mobile/core/app/size_config.dart';
 import 'package:ne_sever_mobile/core/components/image_slider.dart';
@@ -85,10 +86,48 @@ class _HomeViewState extends State<HomeView> {
                   child: Column(
                 children: [buildTrendWomanProducts()],
               )),
+              SizedBox(
+                  child: Column(
+                children: [buildTrendManProducts()],
+              )),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  buildTrendManProducts() {
+    return BlocConsumer<TrendManProductCubit, TrendManProductState>(
+      listener: (context, state) {
+        if (state is TrendManProductErrorState) {
+          Scaffold.of(context)
+              .showSnackBar(SnackBar(content: Text(state.errorMessage)));
+        }
+      },
+      // ignore: missing_return
+      builder: (context, state) {
+        if (state is TrendManProductInitial) {
+          context.bloc<TrendManProductCubit>().getTrendManProducts();
+          return Center(
+            child: SizedBox(),
+          );
+        } else if (state is TrendManProductLoadingState) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if (state is TrendManProductLoadedState) {
+          return ProductWidget(
+            productList: state.trendManProductList,
+            sectionTitle: "Trend Erkek Hediyeleri",
+          );
+        } else if (state is TrendManProductErrorState) {
+          Scaffold.of(context)
+              .showSnackBar(SnackBar(content: Text(state.errorMessage)));
+
+          return Text('');
+        }
+      },
     );
   }
 
@@ -113,7 +152,8 @@ class _HomeViewState extends State<HomeView> {
           );
         } else if (state is TrendWomanProductLoadedState) {
           return ProductWidget(
-            trendWomanProductList: state.trendWomanProductList,
+            productList: state.trendWomanProductList,
+            sectionTitle: "Trend Kadın Hediyeleri",
           );
         } else if (state is TrendWomanProductErrorState) {
           Scaffold.of(context)

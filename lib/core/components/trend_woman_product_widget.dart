@@ -7,9 +7,10 @@ import 'package:ne_sever_mobile/views/home/components/section_title.dart';
 import 'package:ne_sever_mobile/views/product-detail/view/product_detail_view.dart';
 
 class ProductWidget extends StatelessWidget {
-  final List<Product> trendWomanProductList;
-
-  const ProductWidget({Key key, @required this.trendWomanProductList})
+  final List<Product> productList;
+  final String sectionTitle;
+  const ProductWidget(
+      {Key key, @required this.productList, @required this.sectionTitle})
       : super(key: key);
 
   @override
@@ -19,7 +20,7 @@ class ProductWidget extends StatelessWidget {
         Padding(
           padding:
               EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
-          child: SectionTitle(title: "Trend Kadın Hediyeleri", press: () {}),
+          child: SectionTitle(title: sectionTitle, press: () {}),
         ),
         SizedBox(height: getProportionateScreenWidth(10)),
         GridView.count(
@@ -27,10 +28,10 @@ class ProductWidget extends StatelessWidget {
           shrinkWrap: true,
           crossAxisCount: 2,
           children: List.generate(
-            trendWomanProductList.length,
+            productList.length,
             (index) {
               return ProductCard(
-                trendWomanProduct: trendWomanProductList[index],
+                productList: productList[index],
               );
 
               // here by default width and height is 0
@@ -43,10 +44,9 @@ class ProductWidget extends StatelessWidget {
 }
 
 class ProductCard extends StatelessWidget {
-  final Product trendWomanProduct;
+  final Product productList;
 
-  const ProductCard({Key key, @required this.trendWomanProduct})
-      : super(key: key);
+  const ProductCard({Key key, @required this.productList}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +58,7 @@ class ProductCard extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) => ProductDetailView(
-                  trendWomanProduct: trendWomanProduct,
+                  trendWomanProduct: productList,
                 ),
               )),
           child: Column(
@@ -72,13 +72,13 @@ class ProductCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: Hero(
-                    tag: trendWomanProduct.urunId.toString(),
-                    child: Image.network(trendWomanProduct.resimUrl),
+                    tag: productList.urunId.toString(),
+                    child: Image.network(productList.resimUrl),
                   ),
                 ),
               ),
               Text(
-                trendWomanProduct.urunAdi,
+                productList.urunAdi,
                 style: TextStyle(color: Colors.black),
                 maxLines: 2,
               ),
