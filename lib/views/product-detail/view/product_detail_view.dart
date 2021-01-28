@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:ne_sever_mobile/core/app/constants.dart';
 import 'package:ne_sever_mobile/core/app/size_config.dart';
@@ -7,15 +5,15 @@ import 'package:ne_sever_mobile/core/components/appbar_title_text.dart';
 import 'package:ne_sever_mobile/core/components/default_button.dart';
 import 'package:ne_sever_mobile/core/widgets/appbar_widget.dart';
 import 'package:ne_sever_mobile/models/Product.dart';
-import 'package:ne_sever_mobile/views/product-detail/components/color_dots.dart';
 import 'package:ne_sever_mobile/views/product-detail/components/product_description.dart';
 import 'package:ne_sever_mobile/views/product-detail/components/product_images.dart';
 import 'package:ne_sever_mobile/views/product-detail/components/top_rounded_container.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProductDetailView extends StatefulWidget {
-  final Product product;
+  final Product trendWomanProduct;
 
-  const ProductDetailView({Key key, @HttpStatus.UPGRADE_REQUIRED this.product})
+  const ProductDetailView({Key key, @required this.trendWomanProduct})
       : super(key: key);
 
   @override
@@ -28,19 +26,19 @@ class _ProductDetailViewState extends State<ProductDetailView> {
     return Scaffold(
       appBar: AppBarWidget(
           title: AppBarTitleTextWidget(
-        title: widget.product.title,
+        title: widget.trendWomanProduct.urunAdi,
       )),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: [
-              ProductImages(product: widget.product),
+              ProductImages(trendWomanProduct: widget.trendWomanProduct),
               TopRoundedContainer(
                 color: Colors.white,
                 child: Column(
                   children: [
                     ProductDescription(
-                      product: widget.product,
+                      trendWomanProduct: widget.trendWomanProduct,
                       pressOnSeeMore: () {},
                     ),
                     SizedBox(
@@ -65,7 +63,8 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                                 DefaultButton(
                                   color: kPurpleColor,
                                   text: "Fiyat Gör",
-                                  press: () {},
+                                  press: () => launchURL(
+                                      widget.trendWomanProduct.adresUrl),
                                 ),
                                 SizedBox(
                                   height: getProportionateScreenHeight(10),
@@ -89,5 +88,13 @@ class _ProductDetailViewState extends State<ProductDetailView> {
         ),
       ),
     );
+  }
+
+  launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }

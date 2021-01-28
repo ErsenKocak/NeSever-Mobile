@@ -1,103 +1,40 @@
-import 'package:flutter/material.dart';
-
 class Product {
-  final int id;
-  final String title, description;
-  final List<String> images;
-  final List<Color> colors;
-  final double rating, price;
-  final bool isFavourite, isPopular;
+  int urunId;
+  String sku;
+  String markaAdi;
+  String urunAdi;
+  String resimUrl;
+  String adresUrl;
+  int hediyeSepetindekiUrunAdeti;
 
-  Product({
-    @required this.id,
-    @required this.images,
-    @required this.colors,
-    this.rating = 0.0,
-    this.isFavourite = false,
-    this.isPopular = false,
-    @required this.title,
-    @required this.price,
-    @required this.description,
-  });
+  Product(
+      {this.urunId,
+      this.sku,
+      this.markaAdi,
+      this.urunAdi,
+      this.resimUrl,
+      this.adresUrl,
+      this.hediyeSepetindekiUrunAdeti});
+
+  Product.fromJson(Map<String, dynamic> json) {
+    urunId = json['UrunId'];
+    sku = json['Sku'];
+    markaAdi = json['MarkaAdi'];
+    urunAdi = json['UrunAdi'];
+    resimUrl = json['ResimUrl'];
+    adresUrl = json['AdresUrl'];
+    hediyeSepetindekiUrunAdeti = json['HediyeSepetindekiUrunAdeti'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['UrunId'] = this.urunId;
+    data['Sku'] = this.sku;
+    data['MarkaAdi'] = this.markaAdi;
+    data['UrunAdi'] = this.urunAdi;
+    data['ResimUrl'] = this.resimUrl;
+    data['AdresUrl'] = this.adresUrl;
+    data['HediyeSepetindekiUrunAdeti'] = this.hediyeSepetindekiUrunAdeti;
+    return data;
+  }
 }
-
-// Our demo Products
-
-List<Product> demoProducts = [
-  Product(
-    id: 1,
-    images: [
-      "assets/images/saat.jpg",
-      "assets/images/ps4_console_white_2.png",
-      "assets/images/ps4_console_white_3.png",
-      "assets/images/ps4_console_white_4.png",
-    ],
-    colors: [
-      Color(0xFFF6625E),
-      Color(0xFF836DB8),
-      Color(0xFFDECB9C),
-      Colors.white,
-    ],
-    title: "CRA27602 Erkek Kol Saati",
-    price: 64.99,
-    description: description,
-    rating: 4.8,
-    isFavourite: true,
-    isPopular: true,
-  ),
-  Product(
-      id: 2,
-      images: [
-        "assets/images/george-orwell.jpg",
-      ],
-      colors: [
-        Color(0xFFF6625E),
-        Color(0xFF836DB8),
-        Color(0xFFDECB9C),
-        Colors.white,
-      ],
-      title: "1984 Siyah Kutulu Özel Baskı George Orwell Can Yayınları",
-      price: 50.99,
-      description: description,
-      rating: 4.1,
-      isPopular: true,
-      isFavourite: true),
-  Product(
-    id: 3,
-    images: [
-      "assets/images/bayan-parfum.jpg",
-    ],
-    colors: [
-      Color(0xFFF6625E),
-      Color(0xFF836DB8),
-      Color(0xFFDECB9C),
-      Colors.white,
-    ],
-    title: "Pandora Standart Bt200 Kırmızı Bluetooth Kablosuz Hoparlör Kırmızı",
-    price: 36.50,
-    description: description,
-    rating: 4.1,
-    isFavourite: true,
-    isPopular: true,
-  ),
-  Product(
-      id: 4,
-      images: [
-        "assets/images/harmoni-canta.jpg",
-      ],
-      colors: [
-        Color(0xFFF6625E),
-        Color(0xFF836DB8),
-        Color(0xFFDECB9C),
-        Colors.white,
-      ],
-      title: "Harmoni Kadın Clutch / El Çantası Gri",
-      price: 20.20,
-      description: description,
-      rating: 4.1,
-      isFavourite: true,
-      isPopular: true),
-];
-
-const String description =
-    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.";

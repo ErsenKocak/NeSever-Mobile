@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:logger/logger.dart';
 import 'package:ne_sever_mobile/bloc/banner/cubit/banner_cubit.dart';
 import 'package:ne_sever_mobile/bloc/banner_category/categorybanner_cubit.dart';
 import 'package:ne_sever_mobile/bloc/category/cubit/category_cubit.dart';
+import 'package:ne_sever_mobile/bloc/trend_woman_product/trend_woman_product_cubit.dart';
 import 'package:ne_sever_mobile/core/app/size_config.dart';
 import 'package:ne_sever_mobile/core/components/image_slider.dart';
+import 'package:ne_sever_mobile/core/components/trend_woman_product_widget.dart';
+import 'package:ne_sever_mobile/core/init/locator/locator.dart';
 import 'package:ne_sever_mobile/core/widgets/custom_buttom_navigation_bar.dart';
 import 'package:ne_sever_mobile/views/home/components/banner_category_widget.dart';
 import 'package:ne_sever_mobile/views/home/components/categories.dart';
@@ -53,15 +57,15 @@ class _HomeViewState extends State<HomeView> {
                 ),
               ),
               SizedBox(height: getProportionateScreenWidth(10)),
-              SizedBox(
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: PopularProducts(),
-                    ),
-                  ],
-                ),
-              ),
+              // SizedBox(
+              //   child: Row(
+              //     children: [
+              //       Expanded(
+              //         child: PopularProducts(),
+              //       ),
+              //     ],
+              //   ),
+              // ),
               SizedBox(height: getProportionateScreenWidth(10)),
               SizedBox(
                 child: Row(
@@ -77,10 +81,47 @@ class _HomeViewState extends State<HomeView> {
                   child: Column(
                 children: [buildCategoryBanners()],
               )),
+              SizedBox(
+                  child: Column(
+                children: [buildTrendWomanProducts()],
+              )),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  buildTrendWomanProducts() {
+    return BlocConsumer<TrendWomanProductCubit, TrendWomanProductState>(
+      listener: (context, state) {
+        if (state is TrendWomanProductErrorState) {
+          Scaffold.of(context)
+              .showSnackBar(SnackBar(content: Text(state.errorMessage)));
+        }
+      },
+      // ignore: missing_return
+      builder: (context, state) {
+        if (state is TrendWomanProductInitial) {
+          context.bloc<TrendWomanProductCubit>().getTrendWomanProducts();
+          return Center(
+            child: SizedBox(),
+          );
+        } else if (state is TrendWomanProductLoadingState) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if (state is TrendWomanProductLoadedState) {
+          return ProductWidget(
+            trendWomanProductList: state.trendWomanProductList,
+          );
+        } else if (state is TrendWomanProductErrorState) {
+          Scaffold.of(context)
+              .showSnackBar(SnackBar(content: Text(state.errorMessage)));
+
+          return Text('');
+        }
+      },
     );
   }
 

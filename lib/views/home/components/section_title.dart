@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ne_sever_mobile/core/app/constants.dart';
 import 'package:ne_sever_mobile/core/app/size_config.dart';
 
 class SectionTitle extends StatelessWidget {
@@ -10,6 +11,7 @@ class SectionTitle extends StatelessWidget {
 
   final String title;
   final GestureTapCallback press;
+  final bool showMore = false;
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +26,15 @@ class SectionTitle extends StatelessWidget {
           ),
         ),
         GestureDetector(
-          onTap: press,
-          child: Text(
-            "Daha Fazlası...",
-            style: TextStyle(color: Color(0xFFBBBBBB)),
-          ),
-        ),
+            onTap: press,
+            child: Column(
+              children: [
+                Text(
+                  showMore ? "Daha Fazlası..." : "",
+                  style: TextStyle(color: Color(0xFFBBBBBB)),
+                ),
+              ],
+            )),
       ],
     );
   }

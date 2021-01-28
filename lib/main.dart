@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ne_sever_mobile/bloc/banner/cubit/banner_cubit.dart';
 import 'package:ne_sever_mobile/bloc/banner_category/categorybanner_cubit.dart';
 import 'package:ne_sever_mobile/bloc/category/cubit/category_cubit.dart';
+import 'package:ne_sever_mobile/bloc/trend_woman_product/trend_woman_product_cubit.dart';
 import 'package:ne_sever_mobile/core/app/theme.dart';
 import 'package:ne_sever_mobile/core/init/locator/locator.dart';
 import 'package:ne_sever_mobile/views/category/view/category_view.dart';
@@ -32,6 +33,8 @@ class MyApp extends StatelessWidget {
           BlocProvider<BannerCubit>(create: (context) => BannerCubit()),
           BlocProvider<CategorybannerCubit>(
               create: (context) => CategorybannerCubit()),
+          BlocProvider<TrendWomanProductCubit>(
+              create: (context) => TrendWomanProductCubit()),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
