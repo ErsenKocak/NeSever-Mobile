@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:ne_sever_mobile/core/app/constants.dart';
 import 'package:ne_sever_mobile/core/app/size_config.dart';
 import 'package:ne_sever_mobile/models/Product.dart';
+import 'package:ne_sever_mobile/models/ProductDetail.dart';
 
 class ProductImages extends StatefulWidget {
   const ProductImages({
     Key key,
-    @required this.trendWomanProduct,
+    @required this.productDetail,
+    this.product,
   }) : super(key: key);
 
-  final Product trendWomanProduct;
+  final ProductDetail productDetail;
+  final Product product;
   @override
   _ProductImagesState createState() => _ProductImagesState();
 }
@@ -25,8 +28,9 @@ class _ProductImagesState extends State<ProductImages> {
           child: AspectRatio(
             aspectRatio: 1,
             child: Hero(
-              tag: widget.trendWomanProduct.urunId.toString(),
-              child: Image.network(widget.trendWomanProduct.resimUrl),
+              tag: widget.product.urunId.toString(),
+              child:
+                  Image.network(widget.productDetail.resimler[selectedImage]),
             ),
           ),
         ),
@@ -37,7 +41,8 @@ class _ProductImagesState extends State<ProductImages> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ...List.generate(5, (index) => buildSmallProductPreview(index)),
+            ...List.generate(widget.productDetail.resimler.length,
+                (index) => buildSmallProductPreview(index)),
           ],
         )
       ],
@@ -63,7 +68,7 @@ class _ProductImagesState extends State<ProductImages> {
           border: Border.all(
               color: kPrimaryColor.withOpacity(selectedImage == index ? 1 : 0)),
         ),
-        child: Image.network(widget.trendWomanProduct.resimUrl),
+        child: Image.network(widget.productDetail.resimler[index]),
       ),
     );
   }

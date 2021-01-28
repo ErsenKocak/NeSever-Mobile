@@ -46,9 +46,9 @@ class BrandWidget extends StatelessWidget {
 }
 
 class ProductCard extends StatelessWidget {
-  final Product productList;
+  final Product product;
 
-  const ProductCard({Key key, @required this.productList}) : super(key: key);
+  const ProductCard({Key key, @required this.product}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +60,7 @@ class ProductCard extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) => ProductDetailView(
-                  trendWomanProduct: productList,
+                  product: product,
                 ),
               )),
           child: Column(
@@ -74,13 +74,13 @@ class ProductCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: Hero(
-                    tag: productList.urunId.toString(),
-                    child: Image.network(productList.resimUrl),
+                    tag: product.urunId.toString(),
+                    child: Image.network(product.resimUrl),
                   ),
                 ),
               ),
               Text(
-                productList.urunAdi,
+                product.urunAdi,
                 style: TextStyle(color: Colors.black),
                 maxLines: 2,
               ),

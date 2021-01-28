@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ne_sever_mobile/bloc/brand/brand_cubit.dart';
+import 'package:ne_sever_mobile/bloc/product_detail/product_detail_cubit.dart';
 import 'bloc/banner/cubit/banner_cubit.dart';
 import 'bloc/banner_category/categorybanner_cubit.dart';
 import 'bloc/trend_woman_product/trend_woman_product_cubit.dart';
@@ -33,6 +34,8 @@ class MyApp extends StatelessWidget {
           BlocProvider<CategoryCubit>(create: (context) => CategoryCubit()),
           BlocProvider<BannerCubit>(create: (context) => BannerCubit()),
           BlocProvider<BrandCubit>(create: (context) => BrandCubit()),
+          BlocProvider<ProductDetailCubit>(
+              create: (context) => ProductDetailCubit()),
           BlocProvider<CategorybannerCubit>(
               create: (context) => CategorybannerCubit()),
           BlocProvider<TrendWomanProductCubit>(

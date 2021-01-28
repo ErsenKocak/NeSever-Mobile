@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:ne_sever_mobile/core/app/size_config.dart';
 import 'package:ne_sever_mobile/core/components/appbar_title_text.dart';
 import 'package:ne_sever_mobile/models/Product.dart';
+import 'package:ne_sever_mobile/models/ProductDetail.dart';
 
 class ProductDescription extends StatelessWidget {
   const ProductDescription({
     Key key,
-    @required this.trendWomanProduct,
+    @required this.productDetail,
     this.pressOnSeeMore,
   }) : super(key: key);
 
-  final Product trendWomanProduct;
+  final ProductDetail productDetail;
   final GestureTapCallback pressOnSeeMore;
 
   @override
@@ -24,7 +25,7 @@ class ProductDescription extends StatelessWidget {
           child: Align(
             alignment: Alignment.center,
             child: Text(
-              trendWomanProduct.urunAdi,
+              productDetail.urunAdi,
               style: Theme.of(context).textTheme.headline6,
             ),
           ),
@@ -46,7 +47,8 @@ class ProductDescription extends StatelessWidget {
                       'assets/images/gift.png',
                       height: getProportionateScreenHeight(35),
                     ),
-                    AppBarTitleTextWidget(title: '3'),
+                    AppBarTitleTextWidget(
+                        title: productDetail.hediyeSepetiSayisi.toString()),
                   ],
                 ),
                 SizedBox(width: getProportionateScreenWidth(35)),
@@ -56,7 +58,8 @@ class ProductDescription extends StatelessWidget {
                       'assets/images/lookcount.png',
                       height: getProportionateScreenHeight(35),
                     ),
-                    AppBarTitleTextWidget(title: '9'),
+                    AppBarTitleTextWidget(
+                        title: productDetail.goruntulenmeSayisi.toString()),
                   ],
                 ),
               ],

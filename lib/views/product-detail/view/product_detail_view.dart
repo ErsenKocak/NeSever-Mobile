@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:logger/logger.dart';
+import 'package:ne_sever_mobile/bloc/product_detail/product_detail_cubit.dart';
 import 'package:ne_sever_mobile/core/app/constants.dart';
 import 'package:ne_sever_mobile/core/app/size_config.dart';
 import 'package:ne_sever_mobile/core/components/appbar_title_text.dart';
 import 'package:ne_sever_mobile/core/components/default_button.dart';
 import 'package:ne_sever_mobile/core/widgets/appbar_widget.dart';
 import 'package:ne_sever_mobile/models/Product.dart';
+import 'package:ne_sever_mobile/models/ProductDetail.dart';
 import 'package:ne_sever_mobile/views/product-detail/components/product_description.dart';
 import 'package:ne_sever_mobile/views/product-detail/components/product_images.dart';
 import 'package:ne_sever_mobile/views/product-detail/components/top_rounded_container.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ProductDetailView extends StatefulWidget {
-  final Product trendWomanProduct;
+  final Product product;
 
-  const ProductDetailView({Key key, @required this.trendWomanProduct})
-      : super(key: key);
+  const ProductDetailView({Key key, @required this.product}) : super(key: key);
 
   @override
   _ProductDetailViewState createState() => _ProductDetailViewState();
@@ -23,24 +26,71 @@ class ProductDetailView extends StatefulWidget {
 class _ProductDetailViewState extends State<ProductDetailView> {
   @override
   Widget build(BuildContext context) {
-    print(widget.trendWomanProduct.urunId);
+    return BlocConsumer<ProductDetailCubit, ProductDetailState>(
+      listener: (context, state) {
+        if (state is ProductDetailErrorState) {
+          Scaffold.of(context)
+              .showSnackBar(SnackBar(content: Text(state.errorMessage)));
+        }
+      },
+      // ignore: missing_return
+      builder: (context, state) {
+        if (state is ProductDetailInitial) {
+          context
+              .bloc<ProductDetailCubit>()
+              .getProductDetail(widget.product.urunId);
+          return Center(
+            child: SizedBox(),
+          );
+        } else if (state is ProductDetailLoadingState) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if (state is ProductDetailLoadedState) {
+          if (widget.product.urunId != state.productDetail.urunId) {
+            context
+                .bloc<ProductDetailCubit>()
+                .getProductDetail(widget.product.urunId);
+          }
+          return buildProductDetail(state.productDetail);
+        } else if (state is ProductDetailErrorState) {
+          Scaffold.of(context)
+              .showSnackBar(SnackBar(content: Text(state.errorMessage)));
 
+          return Text('');
+        }
+      },
+    );
+  }
+
+  launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  buildProductDetail(ProductDetail _productDetail) {
     return Scaffold(
       appBar: AppBarWidget(
           title: AppBarTitleTextWidget(
-        title: widget.trendWomanProduct.urunAdi,
+        title: _productDetail.urunAdi,
       )),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: [
-              ProductImages(trendWomanProduct: widget.trendWomanProduct),
+              ProductImages(
+                productDetail: _productDetail,
+                product: widget.product,
+              ),
               TopRoundedContainer(
                 color: Colors.white,
                 child: Column(
                   children: [
                     ProductDescription(
-                      trendWomanProduct: widget.trendWomanProduct,
+                      productDetail: _productDetail,
                       pressOnSeeMore: () {},
                     ),
                     SizedBox(
@@ -65,8 +115,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                                 DefaultButton(
                                   color: kPurpleColor,
                                   text: "Fiyat Gör",
-                                  press: () => launchURL(
-                                      widget.trendWomanProduct.adresUrl),
+                                  press: () => launchURL(_productDetail.link),
                                 ),
                                 SizedBox(
                                   height: getProportionateScreenHeight(10),
@@ -90,13 +139,5 @@ class _ProductDetailViewState extends State<ProductDetailView> {
         ),
       ),
     );
-  }
-
-  launchURL(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
   }
 }
