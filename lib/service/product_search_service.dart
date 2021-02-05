@@ -16,7 +16,7 @@ class ProductSearchService {
     final _options = locator<BaseOptions>();
     final _dio = Dio();
     _dio.options = _options;
-    print('SERVİCE ÇALIŞTI');
+
     try {
       var searchProductObj = {"AramaKelime": productSearch.aramaKelime};
 

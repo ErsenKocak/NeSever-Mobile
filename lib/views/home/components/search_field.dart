@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:ne_sever_mobile/bloc/product_search/product_search_cubit.dart';
 import 'package:ne_sever_mobile/core/app/constants.dart';
 import 'package:ne_sever_mobile/core/app/size_config.dart';
+import 'package:ne_sever_mobile/models/product_search/ProductSearch.dart';
 import 'package:ne_sever_mobile/views/product_search/product_search_view.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SearchField extends StatelessWidget {
   final String hintText;
@@ -45,5 +48,9 @@ class SearchField extends StatelessWidget {
             searchingWord: searchingWord,
           ),
         ));
+
+    ProductSearch productSearch = ProductSearch();
+    productSearch.aramaKelime = searchingWord;
+    context.bloc<ProductSearchCubit>().postSearchProduct(productSearch);
   }
 }

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:logger/logger.dart';
 import 'package:ne_sever_mobile/bloc/brand/brand_cubit.dart';
 import 'package:ne_sever_mobile/core/components/brand_widget.dart';
-
 import '../../../bloc/banner/cubit/banner_cubit.dart';
 import '../../../bloc/banner_category/categorybanner_cubit.dart';
 import '../../../bloc/category/category_cubit.dart';

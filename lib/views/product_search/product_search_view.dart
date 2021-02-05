@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:logger/logger.dart';
 import 'package:ne_sever_mobile/bloc/product_search/product_search_cubit.dart';
 import 'package:ne_sever_mobile/core/widgets/appbar_widget.dart';
 import 'package:ne_sever_mobile/models/product_search/ProductSearch.dart';
 
 class ProductSearchView extends StatefulWidget {
   final String searchingWord;
-  String lastSearchingWord;
+
   ProductSearchView({Key key, @required this.searchingWord}) : super(key: key);
 
   @override
@@ -17,15 +16,18 @@ class ProductSearchView extends StatefulWidget {
 class _ProductSearchViewState extends State<ProductSearchView> {
   @override
   Widget build(BuildContext context) {
+    final productSearchCubit = context.bloc<ProductSearchCubit>();
+
     return Scaffold(
       appBar: AppBarWidget(
         title: Text('Product Search'),
       ),
-      body: buildProductSearch(context),
+      body: buildProductSearch(context, productSearchCubit),
     );
   }
 
-  buildProductSearch(BuildContext context) {
+  buildProductSearch(
+      BuildContext context, ProductSearchCubit productSearchCubit) {
     return BlocConsumer<ProductSearchCubit, ProductSearchState>(
       listener: (context, state) {
         if (state is ProductSearchErrorState) {
@@ -36,9 +38,10 @@ class _ProductSearchViewState extends State<ProductSearchView> {
       // ignore: missing_return
       builder: (context, state) {
         if (state is ProductSearchInitial) {
+          print('STATE INITIAL');
           ProductSearch productSearch = ProductSearch();
           productSearch.aramaKelime = widget.searchingWord;
-          context.bloc<ProductSearchCubit>().postSearchProduct(productSearch);
+          productSearchCubit.postSearchProduct(productSearch);
           return Center(
             child: SizedBox(),
           );
@@ -47,15 +50,15 @@ class _ProductSearchViewState extends State<ProductSearchView> {
             child: CircularProgressIndicator(),
           );
         } else if (state is ProductSearchLoadedState) {
-          Logger().w(state.productSearchResponse);
-          if (widget.lastSearchingWord != widget.searchingWord) {
-            ProductSearch productSearch = ProductSearch();
-            productSearch.aramaKelime = widget.searchingWord;
-            context.bloc<ProductSearchCubit>().postSearchProduct(productSearch);
+          if (state.productSearchResponse != null) {
+            return Center(
+              child: Text(state.productSearchResponse.items[0].urunAdi),
+            );
+          } else {
+            return Center(
+              child: Text('DATA BOŞ'),
+            );
           }
-          return Center(
-            child: Text(state.productSearchResponse.items[0].urunAdi),
-          );
         } else if (state is ProductSearchErrorState) {
           Scaffold.of(context)
               .showSnackBar(SnackBar(content: Text(state.errorMessage)));
