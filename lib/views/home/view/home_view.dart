@@ -82,18 +82,18 @@ class _HomeViewState extends State<HomeView> {
                     child: Column(
                   children: [buildCategoryBanners()],
                 )),
-                // SizedBox(
-                //     child: Column(
-                //   children: [buildTrendWomanProducts()],
-                // )),
-                // SizedBox(
-                //     child: Column(
-                //   children: [buildTrendManProducts()],
-                // )),
-                // SizedBox(
-                //     child: Column(
-                //   children: [buildBrands()],
-                // )),
+                SizedBox(
+                    child: Column(
+                  children: [buildTrendWomanProducts()],
+                )),
+                SizedBox(
+                    child: Column(
+                  children: [buildTrendManProducts()],
+                )),
+                SizedBox(
+                    child: Column(
+                  children: [buildBrands()],
+                )),
               ],
             ),
           ),
@@ -113,6 +113,7 @@ class _HomeViewState extends State<HomeView> {
       // ignore: missing_return
       builder: (context, state) {
         if (state is BrandInitial) {
+          // ignore: deprecated_member_use
           context.bloc<BrandCubit>().getBrands();
           return Center(
             child: SizedBox(),
@@ -149,6 +150,7 @@ class _HomeViewState extends State<HomeView> {
       // ignore: missing_return
       builder: (context, state) {
         if (state is TrendManProductInitial) {
+          // ignore: deprecated_member_use
           context.bloc<TrendManProductCubit>().getTrendManProducts();
           return Center(
             child: SizedBox(),
@@ -183,6 +185,7 @@ class _HomeViewState extends State<HomeView> {
       // ignore: missing_return
       builder: (context, state) {
         if (state is TrendWomanProductInitial) {
+          // ignore: deprecated_member_use
           context.bloc<TrendWomanProductCubit>().getTrendWomanProducts();
           return Center(
             child: SizedBox(),
@@ -217,6 +220,7 @@ class _HomeViewState extends State<HomeView> {
       // ignore: missing_return
       builder: (context, state) {
         if (state is CategoryBannerInitial) {
+          // ignore: deprecated_member_use
           context.bloc<CategorybannerCubit>().getCategoryBanners();
           return Center(
             child: SizedBox(),
@@ -250,6 +254,7 @@ class _HomeViewState extends State<HomeView> {
       // ignore: missing_return
       builder: (context, state) {
         if (state is BannerInitial) {
+          // ignore: deprecated_member_use
           context.bloc<BannerCubit>().getBanners();
           return Center(
             child: SizedBox(),
@@ -285,6 +290,7 @@ class _HomeViewState extends State<HomeView> {
           // ignore: missing_return
           builder: (context, state) {
             if (state is CategoryInitialState) {
+              // ignore: deprecated_member_use
               context.bloc<CategoryCubit>().getCategories();
               return Center(
                 child: Text(''),

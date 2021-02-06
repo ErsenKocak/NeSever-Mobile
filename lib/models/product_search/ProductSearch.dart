@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class ProductSearch {
   String siralama;
   String aramaKelime;

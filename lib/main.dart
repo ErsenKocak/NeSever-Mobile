@@ -63,7 +63,9 @@ class MyApp extends StatelessWidget {
             '/gift-cart': (context) => GiftCartView(),
             '/photos': (context) => PhotosView(),
             '/friends': (context) => FriendsView(),
-            '/search-product': (context) => ProductSearchView(),
+            '/search-product': (context) => ProductSearchView(
+                  searchingWord: null,
+                ),
           },
           initialRoute: '/splash',
         ));

@@ -5,6 +5,7 @@ import '../../../core/app/constants.dart';
 import '../../../core/app/size_config.dart';
 import '../../../models/Category.dart';
 
+// ignore: must_be_immutable
 class CategoryCard extends StatefulWidget {
   CategoryModel category;
   final String icon, text;

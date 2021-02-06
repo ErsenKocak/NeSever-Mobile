@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:logger/logger.dart';
 import 'package:ne_sever_mobile/bloc/product_detail/product_detail_cubit.dart';
 import 'package:ne_sever_mobile/core/app/constants.dart';
 import 'package:ne_sever_mobile/core/app/size_config.dart';
@@ -37,6 +36,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
       builder: (context, state) {
         if (state is ProductDetailInitial) {
           context
+              // ignore: deprecated_member_use
               .bloc<ProductDetailCubit>()
               .getProductDetail(widget.product.urunId);
           return Center(

@@ -1,9 +1,8 @@
-import 'dart:convert';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:ne_sever_mobile/core/app/image_manager.dart';
-import 'package:ne_sever_mobile/models/BannerModel.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../../models/BannerModel.dart';
+import '../app/image_manager.dart';
 
 class ImageSliderWidget extends StatelessWidget {
   final List<BannerModel> bannerCategoryList;

@@ -1,10 +1,8 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:ne_sever_mobile/core/app/constants.dart';
-import 'package:ne_sever_mobile/core/app/image_manager.dart';
-import 'package:ne_sever_mobile/core/app/size_config.dart';
-import 'package:ne_sever_mobile/models/Brand.dart';
+import '../app/constants.dart';
+import '../app/image_manager.dart';
+import '../app/size_config.dart';
+import '../../models/Brand.dart';
 
 class BrandCard extends StatelessWidget {
   final Brand brand;

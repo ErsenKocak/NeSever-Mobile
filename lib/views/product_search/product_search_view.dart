@@ -17,6 +17,7 @@ class ProductSearchView extends StatefulWidget {
 class _ProductSearchViewState extends State<ProductSearchView> {
   @override
   Widget build(BuildContext context) {
+    // ignore: deprecated_member_use
     final productSearchCubit = context.bloc<ProductSearchCubit>();
 
     return Scaffold(

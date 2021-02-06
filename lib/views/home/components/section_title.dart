@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ne_sever_mobile/core/app/constants.dart';
 import 'package:ne_sever_mobile/core/app/size_config.dart';
 
 class SectionTitle extends StatelessWidget {

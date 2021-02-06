@@ -6,6 +6,7 @@ import 'package:ne_sever_mobile/models/product_search/ProductSearch.dart';
 import 'package:ne_sever_mobile/views/product_search/product_search_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+// ignore: must_be_immutable
 class SearchField extends StatelessWidget {
   final String hintText;
   String searchingWord;
@@ -51,6 +52,7 @@ class SearchField extends StatelessWidget {
 
     ProductSearch productSearch = ProductSearch();
     productSearch.aramaKelime = searchingWord;
+    // ignore: deprecated_member_use
     context.bloc<ProductSearchCubit>().postSearchProduct(productSearch);
   }
 }

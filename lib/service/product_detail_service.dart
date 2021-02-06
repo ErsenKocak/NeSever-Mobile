@@ -14,7 +14,7 @@ class ProductDetailService {
 
     try {
       final _response =
-          await _dio.get(baseUrl + 'Urun/UrunDetayIcerikGetir?id=${productId}');
+          await _dio.get(baseUrl + 'Urun/UrunDetayIcerikGetir?id=$productId');
 
       if (_response.statusCode == 200) {
         _logger.w(_response.data);

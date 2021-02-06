@@ -75,7 +75,7 @@ class _CategoryViewState extends State<CategoryView> {
             itemBuilder: (BuildContext context, int index) {
               if (state.categoryList[index].ustKategoriId == null) {
                 return CategoryCard(
-                  key: Key('counter-${index}'),
+                  key: Key('counter-$index'),
                   category: state.categoryList[index],
                   icon: 'assets/icons/book.svg',
                   text: state.categoryList[index].kategoriAdi,

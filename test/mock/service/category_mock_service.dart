@@ -16,7 +16,7 @@ class CategoryMockService {
     _dio.options = _options;
     try {
       final _response = await _dio.get(baseUrl +
-          'Urun/KategoriIcerikListGetir?AnasayfadaGoster=${isHomePage}');
+          'Urun/KategoriIcerikListGetir?AnasayfadaGoster=$isHomePage');
       switch (_response.statusCode) {
         case HttpStatus.ok:
           _logger.w(_response.data.length);

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:ne_sever_mobile/core/app/constants.dart';
 import 'package:ne_sever_mobile/core/app/size_config.dart';
 import 'package:ne_sever_mobile/core/components/custom_surfix_icon.dart';
-import 'package:ne_sever_mobile/core/components/default_button.dart';
 import 'package:ne_sever_mobile/core/components/form_error.dart';
 
 class SignUpForm extends StatefulWidget {
@@ -14,6 +13,7 @@ class _SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
   String email;
   String password;
+  // ignore: non_constant_identifier_names
   String conform_password;
   bool remember = false;
   final List<String> errors = [];

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ne_sever_mobile/core/app/size_config.dart';
 import 'package:ne_sever_mobile/core/components/appbar_title_text.dart';
-import 'package:ne_sever_mobile/models/Product.dart';
 import 'package:ne_sever_mobile/models/ProductDetail.dart';
 
 class ProductDescription extends StatelessWidget {

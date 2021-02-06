@@ -1,18 +1,15 @@
-import 'dart:convert';
 import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:ne_sever_mobile/core/app/constants.dart';
 import 'package:ne_sever_mobile/core/app/network_error.dart';
 import 'package:ne_sever_mobile/core/init/locator/locator.dart';
-import 'package:logger/logger.dart';
 import 'package:ne_sever_mobile/models/product_search/ProductSearch.dart';
 import 'package:ne_sever_mobile/models/product_search/ProductSearchResponse.dart';
 
 class ProductSearchService {
   Future<ProductSearchResponse> postSearchProduct(
       ProductSearch productSearch) async {
-    final _logger = locator<Logger>();
+    //final _logger = locator<Logger>();
     final _options = locator<BaseOptions>();
     final _dio = Dio();
     _dio.options = _options;

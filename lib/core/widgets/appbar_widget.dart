@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   Widget title;
   Color backgroundColor;
@@ -10,10 +11,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize => const Size.fromHeight(60);
 
   AppBarWidget(
-      {@required this.title,
-      this.backgroundColor,
-      this.actions,
-      this.leading}) {}
+      {@required this.title, this.backgroundColor, this.actions, this.leading});
 
   @override
   Widget build(BuildContext context) {

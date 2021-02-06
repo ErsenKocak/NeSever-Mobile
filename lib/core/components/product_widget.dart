@@ -64,6 +64,7 @@ class ProductCard extends StatelessWidget {
                     product: product,
                   ),
                 ));
+            // ignore: deprecated_member_use
             context.bloc<ProductDetailCubit>().getProductDetail(product.urunId);
           },
           child: Column(
