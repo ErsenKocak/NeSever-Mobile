@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:ne_sever_mobile/core/app/image_manager.dart';
 import 'package:ne_sever_mobile/models/BannerModel.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -14,17 +15,6 @@ class ImageSliderWidget extends StatelessWidget {
     return buildBannerImages(context);
   }
 
-  imageFromBase64String(BuildContext context, String base64Image) {
-    final size = MediaQuery.of(context).size;
-    final splittedBase64String = base64Image.split(",")[1];
-
-    return Image.memory(
-      base64Decode(splittedBase64String),
-      fit: BoxFit.fill,
-      height: size.height,
-    );
-  }
-
   buildBannerImages(BuildContext context) {
     final List<Widget> imageSliders = bannerCategoryList
         .map((item) => InkWell(
@@ -36,7 +26,7 @@ class ImageSliderWidget extends StatelessWidget {
                       borderRadius: BorderRadius.all(Radius.circular(5.0)),
                       child: Stack(
                         children: <Widget>[
-                          imageFromBase64String(context, item.resimBase64),
+                          buildImages(context, item.resimBase64),
                           Positioned(
                             bottom: 0.0,
                             left: 0.0,

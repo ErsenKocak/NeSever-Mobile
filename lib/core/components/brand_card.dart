@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:ne_sever_mobile/core/app/constants.dart';
+import 'package:ne_sever_mobile/core/app/image_manager.dart';
 import 'package:ne_sever_mobile/core/app/size_config.dart';
 import 'package:ne_sever_mobile/models/Brand.dart';
 
@@ -35,7 +36,7 @@ class BrandCard extends StatelessWidget {
                   ),
                   child: Hero(
                     tag: brand.markaId,
-                    child: imageFromBase64String(context, brand.resimBase64),
+                    child: buildImages(context, brand.resimBase64),
                   ),
                 ),
               ),
@@ -48,18 +49,6 @@ class BrandCard extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-
-  imageFromBase64String(BuildContext context, String base64Image) {
-    final size = MediaQuery.of(context).size;
-
-    final splittedBase64String = base64Image.split(",")[1];
-
-    return Image.memory(
-      base64Decode(splittedBase64String),
-      fit: BoxFit.fill,
-      height: size.height,
     );
   }
 }

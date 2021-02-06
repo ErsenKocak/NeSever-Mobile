@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ne_sever_mobile/bloc/product_search/product_search_cubit.dart';
+import 'package:ne_sever_mobile/core/components/product_widget.dart';
 import 'package:ne_sever_mobile/core/widgets/appbar_widget.dart';
 import 'package:ne_sever_mobile/models/product_search/ProductSearch.dart';
 
@@ -51,8 +52,18 @@ class _ProductSearchViewState extends State<ProductSearchView> {
           );
         } else if (state is ProductSearchLoadedState) {
           if (state.productSearchResponse != null) {
-            return Center(
-              child: Text(state.productSearchResponse.items[0].urunAdi),
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  ProductWidget(
+                    productList: state.productSearchResponse.items,
+                    sectionTitle: "\"${widget.searchingWord}\"" +
+                        "\t" +
+                        "İle Bulunan Sonuçlar",
+                  ),
+                ],
+              ),
             );
           } else {
             return Center(
