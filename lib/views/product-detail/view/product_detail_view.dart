@@ -47,11 +47,6 @@ class _ProductDetailViewState extends State<ProductDetailView> {
             child: CircularProgressIndicator(),
           );
         } else if (state is ProductDetailLoadedState) {
-          if (widget.product.urunId != state.productDetail.urunId) {
-            context
-                .bloc<ProductDetailCubit>()
-                .getProductDetail(widget.product.urunId);
-          }
           return buildProductDetail(state.productDetail);
         } else if (state is ProductDetailErrorState) {
           Scaffold.of(context)

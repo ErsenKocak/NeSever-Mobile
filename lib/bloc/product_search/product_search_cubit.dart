@@ -16,7 +16,7 @@ class ProductSearchCubit extends Cubit<ProductSearchState> {
   Future<void> postSearchProduct(ProductSearch productSearch) async {
     try {
       emit(ProductSearchLoadingState());
-      await Future.delayed(Duration(seconds: 5));
+
       final response =
           await _productSearchRepository.postSearchProduct(productSearch);
 

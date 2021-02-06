@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:ne_sever_mobile/bloc/product_detail/product_detail_cubit.dart';
 import 'package:ne_sever_mobile/core/app/constants.dart';
+import 'package:ne_sever_mobile/core/app/image_manager.dart';
 import 'package:ne_sever_mobile/core/app/size_config.dart';
 import 'package:ne_sever_mobile/models/Product.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ne_sever_mobile/views/home/components/section_title.dart';
 import 'package:ne_sever_mobile/views/product-detail/view/product_detail_view.dart';
 
@@ -54,13 +56,16 @@ class ProductCard extends StatelessWidget {
       padding: EdgeInsets.all(getProportionateScreenWidth(5)),
       child: SizedBox(
         child: GestureDetector(
-          onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ProductDetailView(
-                  product: product,
-                ),
-              )),
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ProductDetailView(
+                    product: product,
+                  ),
+                ));
+            context.bloc<ProductDetailCubit>().getProductDetail(product.urunId);
+          },
           child: Column(
             children: [
               AspectRatio(
@@ -73,7 +78,7 @@ class ProductCard extends StatelessWidget {
                   ),
                   child: Hero(
                     tag: product.urunId.toString(),
-                    child: Image.network(product.resimUrl),
+                    child: buildImages(context, product.resimUrl),
                   ),
                 ),
               ),
