@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:ne_sever_mobile/core/app/image_manager.dart';
 import 'package:ne_sever_mobile/core/app/size_config.dart';
 import 'package:ne_sever_mobile/models/BannerCategory.dart';
 import 'package:ne_sever_mobile/views/home/components/section_title.dart';
@@ -21,8 +22,7 @@ class CategoryBannerWidget extends StatelessWidget {
           itemCount: bannerCategoryList.length,
           itemBuilder: (context, index) => Container(
             child: CategoryBannerCard(
-              imgUrl:
-                  "https://www.nesever.com.tr${bannerCategoryList[index].resim}",
+              imgUrl: bannerCategoryList[index].resim,
               onPress: () {
                 print(
                     'Category Banner Tıklandı ${bannerCategoryList[index].adi}');
@@ -52,10 +52,7 @@ class CategoryBannerCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           child: Stack(
             children: [
-              Image.network(
-                imgUrl,
-                fit: BoxFit.cover,
-              ),
+              buildImages(context, imgUrl),
               Text.rich(
                 TextSpan(
                   style: TextStyle(color: Colors.white),

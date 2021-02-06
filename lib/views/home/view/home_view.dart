@@ -82,18 +82,18 @@ class _HomeViewState extends State<HomeView> {
                     child: Column(
                   children: [buildCategoryBanners()],
                 )),
-                SizedBox(
-                    child: Column(
-                  children: [buildTrendWomanProducts()],
-                )),
-                SizedBox(
-                    child: Column(
-                  children: [buildTrendManProducts()],
-                )),
-                SizedBox(
-                    child: Column(
-                  children: [buildBrands()],
-                )),
+                // SizedBox(
+                //     child: Column(
+                //   children: [buildTrendWomanProducts()],
+                // )),
+                // SizedBox(
+                //     child: Column(
+                //   children: [buildTrendManProducts()],
+                // )),
+                // SizedBox(
+                //     child: Column(
+                //   children: [buildBrands()],
+                // )),
               ],
             ),
           ),
