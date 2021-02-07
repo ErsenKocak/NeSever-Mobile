@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:ne_sever_mobile/bloc/product_search/product_search_cubit.dart';
 import 'package:ne_sever_mobile/core/components/product_widget.dart';
 import 'package:ne_sever_mobile/core/widgets/appbar_widget.dart';
@@ -48,10 +49,12 @@ class _ProductSearchViewState extends State<ProductSearchView> {
             child: SizedBox(),
           );
         } else if (state is ProductSearchLoadingState) {
+          EasyLoading.show();
           return Center(
-            child: CircularProgressIndicator(),
+            child: Text(''),
           );
         } else if (state is ProductSearchLoadedState) {
+          EasyLoading.dismiss();
           if (state.productSearchResponse != null) {
             return Padding(
               padding: const EdgeInsets.all(8.0),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:ne_sever_mobile/bloc/product_detail/product_detail_cubit.dart';
 import 'package:ne_sever_mobile/core/app/constants.dart';
 import 'package:ne_sever_mobile/core/app/size_config.dart';
@@ -49,10 +50,12 @@ class _ProductDetailViewState extends State<ProductDetailView> {
               child: SizedBox(),
             );
           } else if (state is ProductDetailLoadingState) {
+            EasyLoading.show();
             return Center(
-              child: CircularProgressIndicator(),
+              child: Text(''),
             );
           } else if (state is ProductDetailLoadedState) {
+            EasyLoading.dismiss();
             return buildProductDetail(state.productDetail);
           } else if (state is ProductDetailErrorState) {
             Scaffold.of(context)

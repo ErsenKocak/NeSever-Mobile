@@ -4,9 +4,11 @@ import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:ne_sever_mobile/bloc/brand/brand_cubit.dart';
 import 'package:ne_sever_mobile/bloc/product_detail/product_detail_cubit.dart';
 import 'package:ne_sever_mobile/bloc/product_search/product_search_cubit.dart';
+import 'package:ne_sever_mobile/core/app/constants.dart';
 import 'package:ne_sever_mobile/views/product_search/product_search_view.dart';
 import 'bloc/banner/cubit/banner_cubit.dart';
 import 'bloc/banner_category/categorybanner_cubit.dart';
@@ -29,8 +31,27 @@ import 'views/sign_up/view/sign_up_view.dart';
 
 void main() {
   setupLocator();
-
   runApp(MyApp());
+  configLoading();
+}
+
+void configLoading() {
+  EasyLoading.instance
+    ..displayDuration = const Duration(milliseconds: 2000)
+    ..indicatorType = EasyLoadingIndicatorType.threeBounce
+    ..loadingStyle = EasyLoadingStyle.custom
+    ..indicatorSize = 45.0
+    ..radius = 10.0
+    ..progressColor = kPrimaryColor
+    ..backgroundColor = kLightPrimaryColor
+    ..indicatorColor = kPrimaryColor
+    ..textColor = Colors.black
+    ..maskColor = Colors.blue.withOpacity(0.5)
+    ..userInteractions = true
+    ..dismissOnTap = false
+    ..maskType = EasyLoadingMaskType.black
+    ..toastPosition = EasyLoadingToastPosition.center
+    ..animationStyle = EasyLoadingAnimationStyle.opacity;
 }
 
 class MyApp extends StatelessWidget {
@@ -53,6 +74,7 @@ class MyApp extends StatelessWidget {
               create: (context) => TrendManProductCubit()),
         ],
         child: MaterialApp(
+          builder: EasyLoading.init(),
           debugShowCheckedModeBanner: false,
           title: 'Ne Sever ?',
           theme: theme(),

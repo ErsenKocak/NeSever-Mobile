@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:ne_sever_mobile/bloc/product_detail/product_detail_cubit.dart';
 import 'package:ne_sever_mobile/core/app/constants.dart';
 import 'package:ne_sever_mobile/core/app/image_manager.dart';
@@ -64,6 +65,8 @@ class ProductCard extends StatelessWidget {
                     product: product,
                   ),
                 ));
+
+            //EasyLoading.show();
             // ignore: deprecated_member_use
             context.bloc<ProductDetailCubit>().getProductDetail(product.urunId);
           },

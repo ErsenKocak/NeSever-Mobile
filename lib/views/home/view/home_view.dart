@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:ne_sever_mobile/bloc/brand/brand_cubit.dart';
 import 'package:ne_sever_mobile/core/components/brand_widget.dart';
 import 'package:ne_sever_mobile/core/components/product_widget.dart';
@@ -122,12 +123,13 @@ class _HomeViewState extends State<HomeView> {
             child: SizedBox(),
           );
         } else if (state is BrandLoadingState) {
+          EasyLoading.show();
           return Center(
-            child: CircularProgressIndicator(),
+            child: Text(''),
           );
         } else if (state is BrandLoadedState) {
           //Logger().w(state.brandList);
-
+          EasyLoading.dismiss();
           return BrandWidget(
             brandList: state.brandList,
             sectionTitle: "Marka",
@@ -159,10 +161,12 @@ class _HomeViewState extends State<HomeView> {
             child: SizedBox(),
           );
         } else if (state is TrendManProductLoadingState) {
+          EasyLoading.show();
           return Center(
-            child: CircularProgressIndicator(),
+            child: Text(''),
           );
         } else if (state is TrendManProductLoadedState) {
+          EasyLoading.dismiss();
           return ProductWidget(
             productList: state.trendManProductList,
             sectionTitle: "Trend Erkek Hediyeleri",
@@ -194,10 +198,12 @@ class _HomeViewState extends State<HomeView> {
             child: SizedBox(),
           );
         } else if (state is TrendWomanProductLoadingState) {
+          EasyLoading.show();
           return Center(
-            child: CircularProgressIndicator(),
+            child: Text(''),
           );
         } else if (state is TrendWomanProductLoadedState) {
+          EasyLoading.dismiss();
           return ProductWidget(
             productList: state.trendWomanProductList,
             sectionTitle: "Trend Kadın Hediyeleri",
@@ -229,10 +235,12 @@ class _HomeViewState extends State<HomeView> {
             child: SizedBox(),
           );
         } else if (state is CategoryBannerLoadingState) {
+          EasyLoading.show();
           return Center(
-            child: CircularProgressIndicator(),
+            child: Text(''),
           );
         } else if (state is CategoryBannerLoadedState) {
+          EasyLoading.dismiss();
           return CategoryBannerWidget(
             bannerCategoryList: state.bannerCategoryList,
           );
@@ -258,15 +266,18 @@ class _HomeViewState extends State<HomeView> {
       builder: (context, state) {
         if (state is BannerInitial) {
           // ignore: deprecated_member_use
+          EasyLoading.show();
           context.bloc<BannerCubit>().getBanners();
           return Center(
             child: SizedBox(),
           );
         } else if (state is BannerLoadingState) {
+          EasyLoading.show();
           return Center(
-            child: CircularProgressIndicator(),
+            child: Text(''),
           );
         } else if (state is BannerLoadedState) {
+          EasyLoading.dismiss();
           return ImageSliderWidget(
             bannerCategoryList: state.bannerCategoryList,
           );
@@ -299,10 +310,12 @@ class _HomeViewState extends State<HomeView> {
                 child: Text(''),
               );
             } else if (state is CategoryLoadingState) {
+              EasyLoading.show();
               return Center(
-                child: CircularProgressIndicator(),
+                child: Text(''),
               );
             } else if (state is CategoryLoadedState) {
+              EasyLoading.dismiss();
               return Expanded(
                 flex: 2,
                 child: ListView.builder(
