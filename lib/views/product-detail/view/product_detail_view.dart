@@ -25,36 +25,43 @@ class ProductDetailView extends StatefulWidget {
 class _ProductDetailViewState extends State<ProductDetailView> {
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ProductDetailCubit, ProductDetailState>(
-      listener: (context, state) {
-        if (state is ProductDetailErrorState) {
-          Scaffold.of(context)
-              .showSnackBar(SnackBar(content: Text(state.errorMessage)));
-        }
-      },
-      // ignore: missing_return
-      builder: (context, state) {
-        if (state is ProductDetailInitial) {
-          context
-              // ignore: deprecated_member_use
-              .bloc<ProductDetailCubit>()
-              .getProductDetail(widget.product.urunId);
-          return Center(
-            child: SizedBox(),
-          );
-        } else if (state is ProductDetailLoadingState) {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        } else if (state is ProductDetailLoadedState) {
-          return buildProductDetail(state.productDetail);
-        } else if (state is ProductDetailErrorState) {
-          Scaffold.of(context)
-              .showSnackBar(SnackBar(content: Text(state.errorMessage)));
+    return Scaffold(
+      appBar: AppBarWidget(
+        title: AppBarTitleTextWidget(
+          title: widget.product.urunAdi,
+        ),
+      ),
+      body: BlocConsumer<ProductDetailCubit, ProductDetailState>(
+        listener: (context, state) {
+          if (state is ProductDetailErrorState) {
+            Scaffold.of(context)
+                .showSnackBar(SnackBar(content: Text(state.errorMessage)));
+          }
+        },
+        // ignore: missing_return
+        builder: (context, state) {
+          if (state is ProductDetailInitial) {
+            context
+                // ignore: deprecated_member_use
+                .bloc<ProductDetailCubit>()
+                .getProductDetail(widget.product.urunId);
+            return Center(
+              child: SizedBox(),
+            );
+          } else if (state is ProductDetailLoadingState) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (state is ProductDetailLoadedState) {
+            return buildProductDetail(state.productDetail);
+          } else if (state is ProductDetailErrorState) {
+            Scaffold.of(context)
+                .showSnackBar(SnackBar(content: Text(state.errorMessage)));
 
-          return Text('');
-        }
-      },
+            return Text('');
+          }
+        },
+      ),
     );
   }
 
@@ -67,70 +74,64 @@ class _ProductDetailViewState extends State<ProductDetailView> {
   }
 
   buildProductDetail(ProductDetail _productDetail) {
-    return Scaffold(
-      appBar: AppBarWidget(
-          title: AppBarTitleTextWidget(
-        title: _productDetail.urunAdi,
-      )),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              ProductImages(
-                productDetail: _productDetail,
-                product: widget.product,
-              ),
-              TopRoundedContainer(
-                color: Colors.white,
-                child: Column(
-                  children: [
-                    ProductDescription(
-                      productDetail: _productDetail,
-                      pressOnSeeMore: () {},
-                    ),
-                    SizedBox(
-                      height: getProportionateScreenHeight(10),
-                    ),
-                    Column(
-                      children: [
-                        // ColorDots(product: widget.product),
-                        TopRoundedContainer(
-                          color: Color(0xFFF6F7F9),
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                              left: SizeConfig.screenWidth * 0.15,
-                              right: SizeConfig.screenWidth * 0.15,
-                              bottom: getProportionateScreenWidth(40),
-                              top: getProportionateScreenWidth(15),
-                            ),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                DefaultButton(
-                                  color: kPurpleColor,
-                                  text: "Fiyat Gör",
-                                  press: () => launchURL(_productDetail.link),
-                                ),
-                                SizedBox(
-                                  height: getProportionateScreenHeight(10),
-                                ),
-                                DefaultButton(
-                                  color: kPinkColor,
-                                  text: "Hediye Sepetine Ekle",
-                                  press: () {},
-                                ),
-                              ],
-                            ),
+    return SafeArea(
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            ProductImages(
+              productDetail: _productDetail,
+              product: widget.product,
+            ),
+            TopRoundedContainer(
+              color: Colors.white,
+              child: Column(
+                children: [
+                  ProductDescription(
+                    productDetail: _productDetail,
+                    pressOnSeeMore: () {},
+                  ),
+                  SizedBox(
+                    height: getProportionateScreenHeight(10),
+                  ),
+                  Column(
+                    children: [
+                      // ColorDots(product: widget.product),
+                      TopRoundedContainer(
+                        color: Color(0xFFF6F7F9),
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                            left: SizeConfig.screenWidth * 0.15,
+                            right: SizeConfig.screenWidth * 0.15,
+                            bottom: getProportionateScreenWidth(40),
+                            top: getProportionateScreenWidth(15),
+                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              DefaultButton(
+                                color: kPurpleColor,
+                                text: "Fiyat Gör",
+                                press: () => launchURL(_productDetail.link),
+                              ),
+                              SizedBox(
+                                height: getProportionateScreenHeight(10),
+                              ),
+                              DefaultButton(
+                                color: kPinkColor,
+                                text: "Hediye Sepetine Ekle",
+                                press: () {},
+                              ),
+                            ],
                           ),
                         ),
-                      ],
-                    ),
-                  ],
-                ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

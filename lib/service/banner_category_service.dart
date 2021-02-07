@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:ne_sever_mobile/core/app/constants.dart';
 import 'package:ne_sever_mobile/core/app/network_error.dart';
@@ -11,6 +14,16 @@ class BannerCategoryService {
     _dio.options = _options;
 
     try {
+      (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+          (HttpClient client) {
+        client.badCertificateCallback =
+            (X509Certificate cert, String host, int port) {
+          print('CERTİFİCATED');
+
+          return true;
+        };
+        return client;
+      };
       final _response =
           await _dio.get(baseUrl + 'Sayfa/KategoriBannerIcerikListGetir');
 

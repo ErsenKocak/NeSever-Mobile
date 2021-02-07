@@ -29,72 +29,75 @@ class _HomeViewState extends State<HomeView> {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                SizedBox(
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: HomeHeader(),
-                      ),
-                    ],
+          child: GestureDetector(
+            onTap: () => FocusScope.of(context).requestFocus(new FocusNode()),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  SizedBox(
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: HomeHeader(),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                SizedBox(height: getProportionateScreenWidth(10)),
-                SizedBox(
-                  height: getProportionateScreenHeight(160),
-                  child: buildCategoriesRow(),
-                ),
-                SizedBox(child: buildBanners()),
-                SizedBox(
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: DiscountBanner(),
-                      ),
-                    ],
+                  SizedBox(height: getProportionateScreenWidth(10)),
+                  SizedBox(
+                    height: getProportionateScreenHeight(160),
+                    child: buildCategoriesRow(),
                   ),
-                ),
-                SizedBox(height: getProportionateScreenWidth(10)),
-                // SizedBox(
-                //   child: Row(
-                //     children: [
-                //       Expanded(
-                //         child: PopularProducts(),
-                //       ),
-                //     ],
-                //   ),
-                // ),
-                SizedBox(height: getProportionateScreenWidth(10)),
-                SizedBox(
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: SpecialOffers(),
-                      ),
-                    ],
+                  SizedBox(child: buildBanners()),
+                  SizedBox(
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: DiscountBanner(),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                SizedBox(height: getProportionateScreenWidth(10)),
-                SizedBox(
-                    child: Column(
-                  children: [buildCategoryBanners()],
-                )),
-                SizedBox(
-                    child: Column(
-                  children: [buildTrendWomanProducts()],
-                )),
-                SizedBox(
-                    child: Column(
-                  children: [buildTrendManProducts()],
-                )),
-                SizedBox(
-                    child: Column(
-                  children: [buildBrands()],
-                )),
-              ],
+                  SizedBox(height: getProportionateScreenWidth(10)),
+                  // SizedBox(
+                  //   child: Row(
+                  //     children: [
+                  //       Expanded(
+                  //         child: PopularProducts(),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
+                  SizedBox(height: getProportionateScreenWidth(10)),
+                  SizedBox(
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: SpecialOffers(),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: getProportionateScreenWidth(10)),
+                  SizedBox(
+                      child: Column(
+                    children: [buildCategoryBanners()],
+                  )),
+                  SizedBox(
+                      child: Column(
+                    children: [buildTrendWomanProducts()],
+                  )),
+                  SizedBox(
+                      child: Column(
+                    children: [buildTrendManProducts()],
+                  )),
+                  SizedBox(
+                      child: Column(
+                    children: [buildBrands()],
+                  )),
+                ],
+              ),
             ),
           ),
         ),

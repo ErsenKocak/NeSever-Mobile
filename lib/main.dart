@@ -1,3 +1,7 @@
+import 'dart:io';
+
+import 'package:dio/adapter.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ne_sever_mobile/bloc/brand/brand_cubit.dart';
@@ -25,6 +29,7 @@ import 'views/sign_up/view/sign_up_view.dart';
 
 void main() {
   setupLocator();
+
   runApp(MyApp());
 }
 

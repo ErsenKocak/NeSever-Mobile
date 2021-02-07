@@ -19,7 +19,7 @@ class _CategoryViewState extends State<CategoryView> {
   bool isActive = false;
   CategoryModel selectedCategory;
   CategoryModel selectedSubCategory;
-  String dropdownValue = 'One';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,7 +46,8 @@ class _CategoryViewState extends State<CategoryView> {
               builder: (context, state) {
                 if (state is CategoryInitialState) {
                   // context.bloc<CategoryCubit>().getCategories();
-                  context.read<CategoryCubit>().getCategories();
+                  // ignore: deprecated_member_use
+                  context.bloc<CategoryCubit>().getCategories();
                   return Center(
                     child: Text(''),
                   );
@@ -137,22 +138,23 @@ class _CategoryViewState extends State<CategoryView> {
                           ),
                           child: Column(
                             children: [
-                              // Expanded(
-                              //   child: ListView.builder(
-                              //     itemCount: state.categoryList.length,
-                              //     itemBuilder: (context, index) {
-                              //       if (selectedSubCategory != null &&
-                              //           state.categoryList[index]
-                              //                   .ustKategoriId ==
-                              //               selectedSubCategory.kategoriId) {
-                              //         return Text(state
-                              //             .categoryList[index].kategoriAdi);
-                              //       } else {
-                              //         return Text('asdasd');
-                              //       }
-                              //     },
-                              //   ),
-                              // ),
+                              Expanded(
+                                child: ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: state.categoryList.length,
+                                  itemBuilder: (context, index) {
+                                    if (selectedSubCategory != null &&
+                                        state.categoryList[index]
+                                                .ustKategoriId ==
+                                            selectedSubCategory.kategoriId) {
+                                      return Text(state
+                                          .categoryList[index].kategoriAdi);
+                                    } else {
+                                      return Text('asdasd');
+                                    }
+                                  },
+                                ),
+                              ),
                             ],
                           ),
                         ),
