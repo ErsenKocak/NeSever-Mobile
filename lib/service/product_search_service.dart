@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
+import 'package:logger/logger.dart';
 import 'package:ne_sever_mobile/core/app/constants.dart';
 import 'package:ne_sever_mobile/core/app/network_error.dart';
 import 'package:ne_sever_mobile/core/init/locator/locator.dart';
@@ -15,7 +16,14 @@ class ProductSearchService {
     _dio.options = _options;
 
     try {
-      var searchProductObj = {"AramaKelime": productSearch.aramaKelime};
+      var searchProductObj = {
+        "AramaKelime": productSearch.aramaKelime,
+        "AramaMarka": productSearch.aramaMarka,
+        "AramaKategori": productSearch.aramaKategori,
+        "AramaSite": productSearch.aramaSite,
+      };
+
+      //_logger.w(searchProductObj);
 
       final _response = await _dio.post(baseUrl + 'Urun/UrunIcerikListGetir',
           options: Options(headers: {
@@ -24,6 +32,7 @@ class ProductSearchService {
           data: searchProductObj);
 
       if (_response.statusCode == 200) {
+        //_logger.w(_response.data);
         return ProductSearchResponse.fromJson(_response.data);
       } else {
         throw MyNetworkError('Bağlantı Sağlanamadı !',

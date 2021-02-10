@@ -28,6 +28,7 @@ class CategoryBannerWidget extends StatelessWidget {
               imgUrl:
                   "https://www.nesever.com.tr${bannerCategoryList[index].resim}",
               onPress: () {
+                print(bannerCategoryList[index].parametre);
                 Navigator.push(
                     context,
                     MaterialPageRoute(

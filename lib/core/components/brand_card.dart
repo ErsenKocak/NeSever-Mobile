@@ -6,15 +6,17 @@ import '../../models/Brand.dart';
 
 class BrandCard extends StatelessWidget {
   final Brand brand;
-
-  const BrandCard({Key key, @required this.brand}) : super(key: key);
+  final VoidCallback onPress;
+  const BrandCard({Key key, @required this.brand, @required this.onPress})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(getProportionateScreenWidth(5)),
       child: SizedBox(
-        child: GestureDetector(
+        child: InkWell(
+          onTap: onPress,
           // onTap: () => Navigator.push(
           //     context,
           //     MaterialPageRoute(

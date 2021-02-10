@@ -1,19 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:ne_sever_mobile/bloc/product_search/product_search_cubit.dart';
 import 'package:ne_sever_mobile/core/app/constants.dart';
 import 'package:ne_sever_mobile/core/app/size_config.dart';
 import 'package:ne_sever_mobile/core/components/brand_card.dart';
+import 'package:ne_sever_mobile/core/init/locator/locator.dart';
 import 'package:ne_sever_mobile/models/Brand.dart';
 import 'package:ne_sever_mobile/models/Product.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ne_sever_mobile/models/product_search/ProductSearch.dart';
 import 'package:ne_sever_mobile/views/home/components/section_title.dart';
 import 'package:ne_sever_mobile/views/product-detail/view/product_detail_view.dart';
+import 'package:ne_sever_mobile/views/product_search/product_search_view.dart';
 
 class BrandWidget extends StatelessWidget {
   final List<Brand> brandList;
   final String sectionTitle;
-  const BrandWidget(
-      {Key key, @required this.brandList, @required this.sectionTitle})
-      : super(key: key);
+
+  const BrandWidget({
+    Key key,
+    @required this.brandList,
+    @required this.sectionTitle,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +40,22 @@ class BrandWidget extends StatelessWidget {
             brandList.length,
             (index) {
               return BrandCard(
+                onPress: () {
+                  print(brandList[index].markaId.toString());
+                  print(brandList[index].markaAdi);
+
+                  final productSearch = ProductSearch();
+                  productSearch.aramaMarka =
+                      brandList[index].markaId.toString();
+                  context
+                      .bloc<ProductSearchCubit>()
+                      .postSearchProduct(productSearch);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProductSearchView(),
+                      ));
+                },
                 brand: brandList[index],
               );
 
