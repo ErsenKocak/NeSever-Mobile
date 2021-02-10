@@ -33,6 +33,7 @@ class ProductSearch {
     aramaKelime = json['AramaKelime'];
     aramaKategori = json['AramaKategori'];
     aramaMarka = json['AramaMarka'];
+    aramaSite = json['AramaSite'];
     start = json['Start'];
     length = json['Length'];
   }
@@ -43,6 +44,7 @@ class ProductSearch {
     data['AramaKelime'] = this.aramaKelime;
     data['AramaKategori'] = this.aramaKategori;
     data['AramaMarka'] = this.aramaMarka;
+    data['AramaSite'] = this.aramaSite;
     data['Start'] = this.start;
     data['Length'] = this.length;
     return data;

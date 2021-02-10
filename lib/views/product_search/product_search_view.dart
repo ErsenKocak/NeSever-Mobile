@@ -9,7 +9,7 @@ import 'package:ne_sever_mobile/models/product_search/ProductSearch.dart';
 class ProductSearchView extends StatefulWidget {
   final String searchingWord;
 
-  ProductSearchView({Key key, @required this.searchingWord}) : super(key: key);
+  ProductSearchView({Key key, this.searchingWord}) : super(key: key);
 
   @override
   _ProductSearchViewState createState() => _ProductSearchViewState();
@@ -23,7 +23,7 @@ class _ProductSearchViewState extends State<ProductSearchView> {
 
     return Scaffold(
       appBar: AppBarWidget(
-        title: Text('Product Search'),
+        title: Text(''),
       ),
       body: buildProductSearch(context, productSearchCubit),
     );
@@ -61,11 +61,14 @@ class _ProductSearchViewState extends State<ProductSearchView> {
               child: Column(
                 children: [
                   ProductWidget(
-                    productList: state.productSearchResponse.items,
-                    sectionTitle: "\"${widget.searchingWord}\"" +
-                        "\t" +
-                        "İle Bulunan Sonuçlar",
-                  ),
+                      productList: state.productSearchResponse.items,
+                      sectionTitle: widget.searchingWord != null
+                          ? "\"${widget.searchingWord}\"" +
+                              "\t" +
+                              "İle Bulunan Sonuçlar" +
+                              " " +
+                              "(${state.productSearchResponse.items.length})"
+                          : ''),
                 ],
               ),
             );

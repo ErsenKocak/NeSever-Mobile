@@ -8,7 +8,7 @@ buildImages(BuildContext context, String imageStrings) {
     return Image.network(
       "https://www.nesever.com.tr" + imageStrings,
     );
-  } else {
+  } else if (imageStrings.contains("data:image")) {
     final size = MediaQuery.of(context).size;
     final splittedBase64String = imageStrings.split(",")[1];
 
@@ -17,5 +17,7 @@ buildImages(BuildContext context, String imageStrings) {
       fit: BoxFit.fill,
       height: size.height,
     );
+  } else {
+    return SizedBox();
   }
 }

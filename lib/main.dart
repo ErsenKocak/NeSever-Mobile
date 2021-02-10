@@ -3,12 +3,15 @@ import 'dart:io';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:ne_sever_mobile/bloc/brand/brand_cubit.dart';
 import 'package:ne_sever_mobile/bloc/product_detail/product_detail_cubit.dart';
 import 'package:ne_sever_mobile/bloc/product_search/product_search_cubit.dart';
+import 'package:ne_sever_mobile/bloc/splash_view/splashviewcubit_cubit.dart';
 import 'package:ne_sever_mobile/core/app/constants.dart';
+import 'package:ne_sever_mobile/core/shared/shared_preferences_manager.dart';
 import 'package:ne_sever_mobile/views/product_search/product_search_view.dart';
 import 'bloc/banner/cubit/banner_cubit.dart';
 import 'bloc/banner_category/categorybanner_cubit.dart';
@@ -29,8 +32,11 @@ import 'bloc/category/category_cubit.dart';
 import 'bloc/trend_man_product/trend_man_product_cubit.dart';
 import 'views/sign_up/view/sign_up_view.dart';
 
-void main() {
+Future<void> main() async {
   setupLocator();
+  WidgetsFlutterBinding.ensureInitialized();
+  await SharedManager.instance.init();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(MyApp());
   configLoading();
 }
@@ -46,12 +52,12 @@ void configLoading() {
     ..backgroundColor = kLightPrimaryColor
     ..indicatorColor = kPrimaryColor
     ..textColor = Colors.black
-    ..maskColor = Colors.blue.withOpacity(0.5)
+    ..maskColor = Colors.white
     ..userInteractions = true
     ..dismissOnTap = false
     ..maskType = EasyLoadingMaskType.black
     ..toastPosition = EasyLoadingToastPosition.center
-    ..animationStyle = EasyLoadingAnimationStyle.opacity;
+    ..animationStyle = EasyLoadingAnimationStyle.scale;
 }
 
 class MyApp extends StatelessWidget {
@@ -62,6 +68,7 @@ class MyApp extends StatelessWidget {
           BlocProvider<CategoryCubit>(create: (context) => CategoryCubit()),
           BlocProvider<BannerCubit>(create: (context) => BannerCubit()),
           BlocProvider<BrandCubit>(create: (context) => BrandCubit()),
+          BlocProvider<SplashViewCubit>(create: (context) => SplashViewCubit()),
           BlocProvider<ProductSearchCubit>(
               create: (context) => ProductSearchCubit()),
           BlocProvider<ProductDetailCubit>(

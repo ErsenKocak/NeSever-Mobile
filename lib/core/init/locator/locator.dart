@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 import 'package:ne_sever_mobile/core/app/constants.dart';
+import 'package:ne_sever_mobile/models/product_search/ProductSearch.dart';
 import 'package:ne_sever_mobile/repository/banner_category_repository.dart';
 import 'package:ne_sever_mobile/repository/banner_repository.dart';
 import 'package:ne_sever_mobile/repository/brand_repository.dart';

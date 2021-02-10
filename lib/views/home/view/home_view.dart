@@ -31,7 +31,9 @@ class _HomeViewState extends State<HomeView> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: GestureDetector(
-            onTap: () => FocusScope.of(context).requestFocus(new FocusNode()),
+            onPanDown: (detail) {
+              FocusScope.of(context).requestFocus(new FocusNode());
+            },
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
@@ -229,13 +231,13 @@ class _HomeViewState extends State<HomeView> {
       // ignore: missing_return
       builder: (context, state) {
         if (state is CategoryBannerInitial) {
+          EasyLoading.show();
           // ignore: deprecated_member_use
           context.bloc<CategorybannerCubit>().getCategoryBanners();
           return Center(
             child: SizedBox(),
           );
         } else if (state is CategoryBannerLoadingState) {
-          EasyLoading.show();
           return Center(
             child: Text(''),
           );
@@ -291,7 +293,7 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 
-  Row buildCategoriesRow() {
+  buildCategoriesRow() {
     return Row(
       children: [
         BlocConsumer<CategoryCubit, CategoryState>(
@@ -316,34 +318,38 @@ class _HomeViewState extends State<HomeView> {
               );
             } else if (state is CategoryLoadedState) {
               EasyLoading.dismiss();
-              return Expanded(
-                flex: 2,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: state.categoryList.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    if (state.categoryList[index].ustKategoriId == null) {
-                      return Padding(
-                        padding: EdgeInsets.all(2),
-                        child: CategoryCard(
-                          category: state.categoryList[index],
-                          icon: 'assets/icons/book.svg',
-                          text: state.categoryList[index].kategoriAdi,
-                          press: () {
-                            // print(categories[index].categoryText);
-                          },
-                        ),
-                      );
-                    } else {
-                      return SizedBox();
-                    }
-                  },
-                ),
-              );
+              return categoriesRowWidget(state);
             }
           },
         ),
       ],
+    );
+  }
+
+  categoriesRowWidget(CategoryLoadedState state) {
+    return Expanded(
+      flex: 2,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: state.categoryList.length,
+        itemBuilder: (BuildContext context, int index) {
+          if (state.categoryList[index].ustKategoriId == null) {
+            return Padding(
+              padding: EdgeInsets.all(2),
+              child: CategoryCard(
+                category: state.categoryList[index],
+                icon: 'assets/icons/book.svg',
+                text: state.categoryList[index].kategoriAdi,
+                press: () {
+                  // print(categories[index].categoryText);
+                },
+              ),
+            );
+          } else {
+            return SizedBox();
+          }
+        },
+      ),
     );
   }
 }

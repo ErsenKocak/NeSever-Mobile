@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:meta/meta.dart';
 import 'package:ne_sever_mobile/core/app/network_error.dart';
 import 'package:ne_sever_mobile/core/init/locator/locator.dart';

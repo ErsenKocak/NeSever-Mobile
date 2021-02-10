@@ -27,20 +27,26 @@ class ProductWidget extends StatelessWidget {
         ),
         SizedBox(height: getProportionateScreenWidth(10)),
         GridView.count(
-          physics: NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          crossAxisCount: 2,
-          children: List.generate(
-            productList.length,
-            (index) {
-              return ProductCard(
-                product: productList[index],
-              );
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            crossAxisCount: 2,
+            children: productList
+                .map((item) => ProductCard(
+                      product: item,
+                    ))
+                .toList()
 
-              // here by default width and height is 0
-            },
-          ),
-        )
+            // List.generate(
+            //   productList.length,
+            //   (index) {
+            //     return ProductCard(
+            //       product: productList[index],
+            //     );
+
+            //     // here by default width and height is 0
+            //   },
+            // ),
+            ),
       ],
     );
   }
