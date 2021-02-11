@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/animation.dart';
 import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
 import 'package:ne_sever_mobile/core/app/network_error.dart';
@@ -20,6 +21,26 @@ class CategoryCubit extends Cubit<CategoryState> {
       emit(CategoryLoadedState(response));
     } on MyNetworkError catch (e) {
       emit(CategoryErrorState(e.errorMessage));
+    }
+  }
+}
+
+class SubCategoryCubit extends Cubit<List<CategoryModel>> {
+  SubCategoryCubit() : super([]);
+
+  void getSubCategories(
+      CategoryModel selectedCategory, List<CategoryModel> categoryList) {
+    try {
+      final subCategoryList = List<CategoryModel>();
+
+      categoryList.forEach((item) => {
+            if (selectedCategory.kategoriId == item.ustKategoriId)
+              {subCategoryList.add(item)}
+          });
+
+      emit(subCategoryList);
+    } catch (e) {
+      print(e);
     }
   }
 }
