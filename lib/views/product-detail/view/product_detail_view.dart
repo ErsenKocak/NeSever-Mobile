@@ -6,6 +6,7 @@ import 'package:ne_sever_mobile/core/app/constants.dart';
 import 'package:ne_sever_mobile/core/app/size_config.dart';
 import 'package:ne_sever_mobile/core/components/appbar_title_text.dart';
 import 'package:ne_sever_mobile/core/components/default_button.dart';
+import 'package:ne_sever_mobile/core/components/loading_bar_manager.dart';
 import 'package:ne_sever_mobile/core/widgets/appbar_widget.dart';
 import 'package:ne_sever_mobile/models/Product.dart';
 import 'package:ne_sever_mobile/models/ProductDetail.dart';
@@ -25,6 +26,13 @@ class ProductDetailView extends StatefulWidget {
 
 class _ProductDetailViewState extends State<ProductDetailView> {
   @override
+  Future<void> initState() {
+    showLoadingBar();
+    context.bloc<ProductDetailCubit>().getProductDetail(widget.product.urunId);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarWidget(
@@ -42,15 +50,14 @@ class _ProductDetailViewState extends State<ProductDetailView> {
         // ignore: missing_return
         builder: (context, state) {
           if (state is ProductDetailInitial) {
+            // ignore: deprecated_member_use
             context
-                // ignore: deprecated_member_use
                 .bloc<ProductDetailCubit>()
                 .getProductDetail(widget.product.urunId);
             return Center(
               child: SizedBox(),
             );
           } else if (state is ProductDetailLoadingState) {
-            EasyLoading.show();
             return Center(
               child: Text(''),
             );

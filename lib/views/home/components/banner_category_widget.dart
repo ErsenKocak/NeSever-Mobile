@@ -20,6 +20,7 @@ class CategoryBannerWidget extends StatelessWidget {
     return Column(
       children: [
         ListView.builder(
+          key: PageStorageKey('11'),
           physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemCount: bannerCategoryList.length,

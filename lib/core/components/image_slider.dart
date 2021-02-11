@@ -56,6 +56,7 @@ class ImageSliderWidget extends StatelessWidget {
         child: Column(
       children: <Widget>[
         CarouselSlider(
+          key: PageStorageKey('9'),
           options: CarouselOptions(
             autoPlayInterval: Duration(seconds: 3),
             autoPlay: true,

@@ -27,6 +27,7 @@ class ProductWidget extends StatelessWidget {
         ),
         SizedBox(height: getProportionateScreenWidth(10)),
         GridView.count(
+            key: PageStorageKey('12'),
             physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             crossAxisCount: 2,
@@ -64,6 +65,9 @@ class ProductCard extends StatelessWidget {
       child: SizedBox(
         child: GestureDetector(
           onTap: () {
+            //  context
+            //     .bloc<ProductDetailCubit>()
+            //     .getProductDetail(product.urunId);
             Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -74,7 +78,6 @@ class ProductCard extends StatelessWidget {
 
             //EasyLoading.show();
             // ignore: deprecated_member_use
-            context.bloc<ProductDetailCubit>().getProductDetail(product.urunId);
           },
           child: Column(
             children: [

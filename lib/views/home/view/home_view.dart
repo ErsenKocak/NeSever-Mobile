@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:ne_sever_mobile/bloc/brand/brand_cubit.dart';
 import 'package:ne_sever_mobile/core/components/brand_widget.dart';
+import 'package:ne_sever_mobile/core/components/loading_bar_manager.dart';
 import 'package:ne_sever_mobile/core/components/product_widget.dart';
 import '../../../bloc/banner/cubit/banner_cubit.dart';
 import '../../../bloc/banner_category/categorybanner_cubit.dart';
@@ -26,10 +27,17 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   @override
+  void initState() {
+    showLoadingBar();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
+          key: PageStorageKey('scroll'),
           child: GestureDetector(
             onPanDown: (detail) {
               FocusScope.of(context).requestFocus(new FocusNode());
@@ -110,6 +118,7 @@ class _HomeViewState extends State<HomeView> {
 
   buildBrands() {
     return BlocConsumer<BrandCubit, BrandState>(
+      key: PageStorageKey('1'),
       listener: (context, state) {
         if (state is BrandErrorState) {
           Scaffold.of(context)
@@ -125,13 +134,12 @@ class _HomeViewState extends State<HomeView> {
             child: SizedBox(),
           );
         } else if (state is BrandLoadingState) {
-          EasyLoading.show();
           return Center(
             child: Text(''),
           );
         } else if (state is BrandLoadedState) {
           //Logger().w(state.brandList);
-          EasyLoading.dismiss();
+          dismissLoadingBar();
           return BrandWidget(
             brandList: state.brandList,
             sectionTitle: "Marka",
@@ -148,6 +156,7 @@ class _HomeViewState extends State<HomeView> {
 
   buildTrendManProducts() {
     return BlocConsumer<TrendManProductCubit, TrendManProductState>(
+      key: PageStorageKey('2'),
       listener: (context, state) {
         if (state is TrendManProductErrorState) {
           Scaffold.of(context)
@@ -163,12 +172,10 @@ class _HomeViewState extends State<HomeView> {
             child: SizedBox(),
           );
         } else if (state is TrendManProductLoadingState) {
-          EasyLoading.show();
           return Center(
             child: Text(''),
           );
         } else if (state is TrendManProductLoadedState) {
-          EasyLoading.dismiss();
           return ProductWidget(
             productList: state.trendManProductList,
             sectionTitle: "Trend Erkek Hediyeleri",
@@ -185,6 +192,7 @@ class _HomeViewState extends State<HomeView> {
 
   buildTrendWomanProducts() {
     return BlocConsumer<TrendWomanProductCubit, TrendWomanProductState>(
+      key: PageStorageKey('3'),
       listener: (context, state) {
         if (state is TrendWomanProductErrorState) {
           Scaffold.of(context)
@@ -200,12 +208,10 @@ class _HomeViewState extends State<HomeView> {
             child: SizedBox(),
           );
         } else if (state is TrendWomanProductLoadingState) {
-          EasyLoading.show();
           return Center(
             child: Text(''),
           );
         } else if (state is TrendWomanProductLoadedState) {
-          EasyLoading.dismiss();
           return ProductWidget(
             productList: state.trendWomanProductList,
             sectionTitle: "Trend Kadın Hediyeleri",
@@ -222,6 +228,7 @@ class _HomeViewState extends State<HomeView> {
 
   buildCategoryBanners() {
     return BlocConsumer<CategorybannerCubit, CategoryBannerState>(
+      key: PageStorageKey('4'),
       listener: (context, state) {
         if (state is CategoryBannerErrorState) {
           Scaffold.of(context)
@@ -231,7 +238,6 @@ class _HomeViewState extends State<HomeView> {
       // ignore: missing_return
       builder: (context, state) {
         if (state is CategoryBannerInitial) {
-          EasyLoading.show();
           // ignore: deprecated_member_use
           context.bloc<CategorybannerCubit>().getCategoryBanners();
           return Center(
@@ -242,7 +248,6 @@ class _HomeViewState extends State<HomeView> {
             child: Text(''),
           );
         } else if (state is CategoryBannerLoadedState) {
-          EasyLoading.dismiss();
           return CategoryBannerWidget(
             bannerCategoryList: state.bannerCategoryList,
           );
@@ -258,6 +263,7 @@ class _HomeViewState extends State<HomeView> {
 
   buildBanners() {
     return BlocConsumer<BannerCubit, BannerState>(
+      key: PageStorageKey('5'),
       listener: (context, state) {
         if (state is BannerErrorState) {
           Scaffold.of(context)
@@ -268,18 +274,16 @@ class _HomeViewState extends State<HomeView> {
       builder: (context, state) {
         if (state is BannerInitial) {
           // ignore: deprecated_member_use
-          EasyLoading.show();
+
           context.bloc<BannerCubit>().getBanners();
           return Center(
-            child: SizedBox(),
+            child: Text(''),
           );
         } else if (state is BannerLoadingState) {
-          EasyLoading.show();
           return Center(
             child: Text(''),
           );
         } else if (state is BannerLoadedState) {
-          EasyLoading.dismiss();
           return ImageSliderWidget(
             bannerCategoryList: state.bannerCategoryList,
           );
@@ -297,6 +301,7 @@ class _HomeViewState extends State<HomeView> {
     return Row(
       children: [
         BlocConsumer<CategoryCubit, CategoryState>(
+          key: PageStorageKey('6'),
           listener: (context, state) {
             if (state is CategoryErrorState) {
               Scaffold.of(context)
@@ -312,12 +317,10 @@ class _HomeViewState extends State<HomeView> {
                 child: Text(''),
               );
             } else if (state is CategoryLoadingState) {
-              EasyLoading.show();
               return Center(
                 child: Text(''),
               );
             } else if (state is CategoryLoadedState) {
-              EasyLoading.dismiss();
               return categoriesRowWidget(state);
             }
           },
@@ -330,6 +333,7 @@ class _HomeViewState extends State<HomeView> {
     return Expanded(
       flex: 2,
       child: ListView.builder(
+        key: PageStorageKey('10'),
         scrollDirection: Axis.horizontal,
         itemCount: state.categoryList.length,
         itemBuilder: (BuildContext context, int index) {

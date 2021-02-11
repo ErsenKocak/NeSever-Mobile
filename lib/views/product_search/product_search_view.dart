@@ -74,7 +74,7 @@ class _ProductSearchViewState extends State<ProductSearchView> {
             );
           } else {
             return Center(
-              child: Text('DATA BOŞ'),
+              child: Text(''),
             );
           }
         } else if (state is ProductSearchErrorState) {

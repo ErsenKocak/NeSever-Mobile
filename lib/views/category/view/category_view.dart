@@ -1,6 +1,7 @@
 import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import '../../../bloc/category/category_cubit.dart';
 import '../../../core/app/constants.dart';
@@ -29,12 +30,12 @@ class _CategoryViewState extends State<CategoryView> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Container(
-              child: SearchField(
-                hintText: 'Kategori Ara',
-              ),
-            ),
-            Divider(),
+            // Container(
+            //   child: SearchField(
+            //     hintText: 'Kategori Ara',
+            //   ),
+            // ),
+            //Divider(),
             BlocConsumer<CategoryCubit, CategoryState>(
               listener: (context, state) {
                 if (state is CategoryErrorState) {
@@ -45,7 +46,7 @@ class _CategoryViewState extends State<CategoryView> {
               // ignore: missing_return
               builder: (context, state) {
                 if (state is CategoryInitialState) {
-                  // context.bloc<CategoryCubit>().getCategories();
+                  EasyLoading.show();
                   // ignore: deprecated_member_use
                   context.bloc<CategoryCubit>().getCategories();
                   return Center(
@@ -56,6 +57,7 @@ class _CategoryViewState extends State<CategoryView> {
                     child: CircularProgressIndicator(),
                   );
                 } else if (state is CategoryLoadedState) {
+                  EasyLoading.dismiss();
                   return Expanded(flex: 2, child: buildCategoryListView(state));
                 }
               },
