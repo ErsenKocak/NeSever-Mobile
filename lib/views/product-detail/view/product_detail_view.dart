@@ -62,7 +62,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
               child: Text(''),
             );
           } else if (state is ProductDetailLoadedState) {
-            EasyLoading.dismiss();
+            dismissLoadingBar();
             return buildProductDetail(state.productDetail);
           } else if (state is ProductDetailErrorState) {
             Scaffold.of(context)

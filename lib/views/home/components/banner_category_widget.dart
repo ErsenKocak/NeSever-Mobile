@@ -29,14 +29,17 @@ class CategoryBannerWidget extends StatelessWidget {
               imgUrl:
                   "https://www.nesever.com.tr${bannerCategoryList[index].resim}",
               onPress: () {
-                print(bannerCategoryList[index].parametre);
+                final productSearch =
+                    buildGiftSearch(bannerCategoryList[index].parametre);
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => ProductSearchView(),
+                      builder: (context) => ProductSearchView(
+                        productSearch: productSearch,
+                        searchingWord: bannerCategoryList[index].adi,
+                      ),
                     ));
-                final productSearch =
-                    buildGiftSearch(bannerCategoryList[index].parametre);
+
                 context
                     .bloc<ProductSearchCubit>()
                     .postSearchProduct(productSearch);

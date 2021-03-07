@@ -11,36 +11,39 @@ class DrawerWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          DrawerHeader(
-            // accountName: Text('Ersen Koçak',style: TextStyle(fontSize: 18.0),),
-            // currentAccountPicture: Image.network(
-            //     'https://cdn4.iconfinder.com/data/icons/avatars-21/512/avatar-circle-human-male-2-512.png'),
-            margin: EdgeInsets.all(0),
-            padding: EdgeInsets.all(0),
-            child: Container(
-              padding: EdgeInsets.all(0),
+          Expanded(
+            child: DrawerHeader(
+              // accountName: Text('Ersen Koçak',style: TextStyle(fontSize: 18.0),),
+              // currentAccountPicture: Image.network(
+              //     'https://cdn4.iconfinder.com/data/icons/avatars-21/512/avatar-circle-human-male-2-512.png'),
               margin: EdgeInsets.all(0),
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
-              color: kPrimaryColor,
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    'assets/images/user.png',
-                    width: getProportionateScreenWidth(100),
-                  ),
-                  Text(
-                    'Ersen Koçak',
-                    style: TextStyle(fontSize: 18.0, color: Colors.white),
-                  )
-                ],
+              padding: EdgeInsets.all(0),
+              child: Container(
+                padding: EdgeInsets.all(0),
+                margin: EdgeInsets.all(0),
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                color: kPrimaryColor,
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'assets/images/user.png',
+                      width: getProportionateScreenWidth(100),
+                    ),
+                    Text(
+                      'Ersen Koçak',
+                      style: TextStyle(fontSize: 18.0, color: Colors.white),
+                    )
+                  ],
+                ),
               ),
             ),
           ),
           Expanded(
+            flex: 3,
             child: ListView(
               children: [
                 // ListTile(

@@ -41,20 +41,19 @@ class BrandWidget extends StatelessWidget {
             (index) {
               return BrandCard(
                 onPress: () {
-                  print(brandList[index].markaId.toString());
-                  print(brandList[index].markaAdi);
-
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProductSearchView(
+                          searchingWord: brandList[index].markaAdi,
+                        ),
+                      ));
                   final productSearch = ProductSearch();
                   productSearch.aramaMarka =
                       brandList[index].markaId.toString();
                   context
                       .bloc<ProductSearchCubit>()
                       .postSearchProduct(productSearch);
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ProductSearchView(),
-                      ));
                 },
                 brand: brandList[index],
               );

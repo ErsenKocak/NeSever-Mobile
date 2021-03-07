@@ -56,10 +56,10 @@ class _HomeViewState extends State<HomeView> {
                     ),
                   ),
                   SizedBox(height: getProportionateScreenWidth(10)),
-                  SizedBox(
-                    height: getProportionateScreenHeight(160),
-                    child: buildCategoriesRow(),
-                  ),
+                  // SizedBox(
+                  //   height: getProportionateScreenHeight(160),
+                  //   child: buildCategoriesRow(),
+                  // ),
                   SizedBox(child: buildBanners()),
                   SizedBox(
                     child: Row(

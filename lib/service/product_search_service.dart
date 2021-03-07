@@ -10,7 +10,7 @@ import 'package:ne_sever_mobile/models/product_search/ProductSearchResponse.dart
 class ProductSearchService {
   Future<ProductSearchResponse> postSearchProduct(
       ProductSearch productSearch) async {
-    //final _logger = locator<Logger>();
+    final _logger = locator<Logger>();
     final _options = locator<BaseOptions>();
     final _dio = Dio();
     _dio.options = _options;
@@ -21,9 +21,10 @@ class ProductSearchService {
         "AramaMarka": productSearch.aramaMarka,
         "AramaKategori": productSearch.aramaKategori,
         "AramaSite": productSearch.aramaSite,
+        "length": 20
       };
 
-      //_logger.w(searchProductObj);
+      _logger.w(searchProductObj);
 
       final _response = await _dio.post(baseUrl + 'Urun/UrunIcerikListGetir',
           options: Options(headers: {

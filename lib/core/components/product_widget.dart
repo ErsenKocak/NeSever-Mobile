@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:ne_sever_mobile/bloc/product_detail/product_detail_cubit.dart';
 import 'package:ne_sever_mobile/core/app/constants.dart';
 import 'package:ne_sever_mobile/core/app/image_manager.dart';
 import 'package:ne_sever_mobile/core/app/size_config.dart';
 import 'package:ne_sever_mobile/models/Product.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ne_sever_mobile/views/home/components/section_title.dart';
 import 'package:ne_sever_mobile/views/product-detail/view/product_detail_view.dart';
 
 class ProductWidget extends StatelessWidget {
   final List<Product> productList;
   final String sectionTitle;
-  const ProductWidget(
+
+  ProductWidget(
       {Key key, @required this.productList, @required this.sectionTitle})
       : super(key: key);
 
@@ -27,12 +25,13 @@ class ProductWidget extends StatelessWidget {
         ),
         SizedBox(height: getProportionateScreenWidth(10)),
         GridView.count(
-            key: PageStorageKey('12'),
+            key: PageStorageKey(productList[0].urunId),
             physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
-            crossAxisCount: 2,
+            crossAxisCount: 3,
             children: productList
                 .map((item) => ProductCard(
+                      key: PageStorageKey(item.urunId.toString()),
                       product: item,
                     ))
                 .toList()
@@ -72,6 +71,7 @@ class ProductCard extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) => ProductDetailView(
+                    key: PageStorageKey(product.urunId.toString()),
                     product: product,
                   ),
                 ));
@@ -80,19 +80,18 @@ class ProductCard extends StatelessWidget {
             // ignore: deprecated_member_use
           },
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               AspectRatio(
-                aspectRatio: 1.5,
+                aspectRatio: 1.7,
                 child: Container(
                   padding: EdgeInsets.all(getProportionateScreenWidth(10)),
                   decoration: BoxDecoration(
                     color: kSecondaryColor.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(15),
                   ),
-                  child: Hero(
-                    tag: product.urunId.toString(),
-                    child: buildImages(context, product.resimUrl),
-                  ),
+                  child: buildImages(context, product.resimUrl),
                 ),
               ),
               Text(

@@ -1,11 +1,20 @@
-import 'package:ne_sever_mobile/core/init/locator/locator.dart';
 import 'package:ne_sever_mobile/models/product_search/ProductSearch.dart';
 
 ProductSearch buildGiftSearch(String parameter) {
+  print(parameter);
   ProductSearch productSearch = ProductSearch();
-  var splitted1 = parameter.split("?");
-  var splitted2 = splitted1[1].split("&");
+
+  var splitted1;
+  var splitted2;
   var splitted3;
+
+  if (parameter.contains("?")) {
+    splitted1 = parameter.split("?");
+    splitted2 = splitted1[1].split("&");
+  } else {
+    splitted1 = parameter;
+    splitted2 = splitted1.split("&");
+  }
   var parameterHashMap = Map<String, String>();
   for (int i = 0; i < splitted2.length; i++) {
     parameterHashMap[splitted2[i].split("=")[0]] = splitted2[i].split("=")[1];
@@ -31,6 +40,9 @@ ProductSearch buildGiftSearch(String parameter) {
           {productSearch.aramaKategori = v}
         else if (k == "w")
           {productSearch.aramaSite = v},
+        productSearch.length = 20
       });
+
+  print('GİFT SEARCH -->' + parameterHashMap.toString());
   return productSearch;
 }

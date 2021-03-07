@@ -2,20 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:ne_sever_mobile/bloc/product_search/product_search_cubit.dart';
+import 'package:ne_sever_mobile/core/app/size_config.dart';
+import 'package:ne_sever_mobile/core/components/loading_bar_manager.dart';
 import 'package:ne_sever_mobile/core/components/product_widget.dart';
 import 'package:ne_sever_mobile/core/widgets/appbar_widget.dart';
+import 'package:ne_sever_mobile/models/Product.dart';
 import 'package:ne_sever_mobile/models/product_search/ProductSearch.dart';
 
 class ProductSearchView extends StatefulWidget {
   final String searchingWord;
-
-  ProductSearchView({Key key, this.searchingWord}) : super(key: key);
+  final ProductSearch productSearch;
+  ProductSearchView({Key key, this.searchingWord, this.productSearch})
+      : super(key: key);
 
   @override
   _ProductSearchViewState createState() => _ProductSearchViewState();
 }
 
 class _ProductSearchViewState extends State<ProductSearchView> {
+  List<Product> productSearchList;
+
   @override
   Widget build(BuildContext context) {
     // ignore: deprecated_member_use
@@ -25,7 +31,9 @@ class _ProductSearchViewState extends State<ProductSearchView> {
       appBar: AppBarWidget(
         title: Text(''),
       ),
-      body: buildProductSearch(context, productSearchCubit),
+      body: SingleChildScrollView(
+        child: buildProductSearch(context, productSearchCubit),
+      ),
     );
   }
 
@@ -42,9 +50,9 @@ class _ProductSearchViewState extends State<ProductSearchView> {
       builder: (context, state) {
         if (state is ProductSearchInitial) {
           print('STATE INITIAL');
-          ProductSearch productSearch = ProductSearch();
-          productSearch.aramaKelime = widget.searchingWord;
-          productSearchCubit.postSearchProduct(productSearch);
+
+          widget.productSearch.aramaKelime = widget.searchingWord;
+          productSearchCubit.postSearchProduct(widget.productSearch);
           return Center(
             child: SizedBox(),
           );
@@ -55,13 +63,15 @@ class _ProductSearchViewState extends State<ProductSearchView> {
           );
         } else if (state is ProductSearchLoadedState) {
           EasyLoading.dismiss();
-          if (state.productSearchResponse != null) {
+          if (state.productSearchResponse.items.length > 0) {
+            productSearchList = List<Product>();
+            productSearchList.addAll(state.productSearchResponse.items);
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: [
                   ProductWidget(
-                      productList: state.productSearchResponse.items,
+                      productList: productSearchList,
                       sectionTitle: widget.searchingWord != null
                           ? "\"${widget.searchingWord}\"" +
                               "\t" +
@@ -73,8 +83,19 @@ class _ProductSearchViewState extends State<ProductSearchView> {
               ),
             );
           } else {
-            return Center(
-              child: Text(''),
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Text(
+                    "\"${widget.searchingWord}\" için ürün bulunamadı!",
+                    style: TextStyle(
+                      fontSize: getProportionateScreenWidth(18),
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+              ],
             );
           }
         } else if (state is ProductSearchErrorState) {
