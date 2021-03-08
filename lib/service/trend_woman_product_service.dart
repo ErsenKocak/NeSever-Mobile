@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:ne_sever_mobile/bloc/trend_woman_product/trend_woman_product_cubit.dart';
 import 'package:ne_sever_mobile/core/app/constants.dart';
 import 'package:ne_sever_mobile/core/app/network_error.dart';
 import 'package:ne_sever_mobile/core/init/locator/locator.dart';
@@ -21,16 +22,19 @@ class TrendWomanProductService {
             .map((x) => Product.fromJson(x))
             .toList();
       } else {
-        throw MyNetworkError('Bağlantı Sağlanamadı !',
-            responseStatusCode: _response.statusCode.toString());
+        // throw MyNetworkError('Bağlantı Sağlanamadı !');
+
+        return null;
       }
     } on DioError catch (e) {
-      if (e.type == DioErrorType.CONNECT_TIMEOUT) {
-        throw MyNetworkError('İstek Zaman Aşımına Uğradı !');
-      } else {
-        throw MyNetworkError('Bağlantı Sağlanamadı !',
-            responseStatusCode: e.response.statusCode.toString());
-      }
+      // if (e.type == DioErrorType.CONNECT_TIMEOUT) {
+      //   MyNetworkError('İstek Zaman Aşımına Uğradı !');
+      // } else {
+      //   MyNetworkError('Bağlantı Sağlanamadı1 !');
+      //   //throw TrendWomanProductErrorState('Bağlantı Sağlanamadı');
+
+      // }
+      return null;
     }
   }
 }

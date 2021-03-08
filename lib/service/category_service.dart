@@ -21,16 +21,10 @@ class CategoryService {
             .map((x) => CategoryModel.fromJson(x))
             .toList();
       } else {
-        throw MyNetworkError('Bağlantı Sağlanamadı !',
-            responseStatusCode: _response.statusCode.toString());
+        return null;
       }
     } on DioError catch (e) {
-      if (e.type == DioErrorType.CONNECT_TIMEOUT) {
-        throw MyNetworkError('İstek Zaman Aşımına Uğradı !');
-      } else {
-        throw MyNetworkError('Bağlantı Sağlanamadı !',
-            responseStatusCode: e.response.statusCode.toString());
-      }
+      return null;
     }
   }
 }

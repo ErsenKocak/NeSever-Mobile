@@ -77,7 +77,7 @@ class _ProductSearchViewState extends State<ProductSearchView> {
                               "\t" +
                               "İle Bulunan Sonuçlar" +
                               " " +
-                              "(${state.productSearchResponse.items.length})"
+                              "(${state.productSearchResponse.metaData.totalItemCount})"
                           : ''),
                 ],
               ),

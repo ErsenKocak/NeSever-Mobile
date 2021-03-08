@@ -17,21 +17,15 @@ class TrendManProductService {
           await _dio.get(baseUrl + 'Urun/TrendErkekUrunIcerikListGetir');
 
       if (_response.statusCode == 200) {
-        _logger.w(_response.data);
+        //_logger.w(_response.data);
         return (_response.data as List)
             .map((x) => Product.fromJson(x))
             .toList();
       } else {
-        throw MyNetworkError('Bağlantı Sağlanamadı !',
-            responseStatusCode: _response.statusCode.toString());
+      return null;
       }
     } on DioError catch (e) {
-      if (e.type == DioErrorType.CONNECT_TIMEOUT) {
-        throw MyNetworkError('İstek Zaman Aşımına Uğradı !');
-      } else {
-        throw MyNetworkError('Bağlantı Sağlanamadı !',
-            responseStatusCode: e.response.statusCode.toString());
-      }
+     return null;
     }
   }
 }

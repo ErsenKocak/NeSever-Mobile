@@ -19,16 +19,16 @@ class HomeHeader extends StatelessWidget {
           SearchField(
             hintText: 'Hediye Ara',
           ),
-          IconBtnWithCounter(
-            svgSrc: "assets/icons/Cart Icon.svg",
-            // press: () => Navigator.pushNamed(context, CartScreen.routeName),
-            numOfitem: 1, press: () {},
-          ),
-          IconBtnWithCounter(
-            svgSrc: "assets/icons/Bell.svg",
-            numOfitem: 3,
-            press: () {},
-          ),
+          // IconBtnWithCounter(
+          //   svgSrc: "assets/icons/Cart Icon.svg",
+          //   // press: () => Navigator.pushNamed(context, CartScreen.routeName),
+          //   numOfitem: 1, press: () {},
+          // ),
+          // IconBtnWithCounter(
+          //   svgSrc: "assets/icons/Bell.svg",
+          //   numOfitem: 3,
+          //   press: () {},
+          // ),
         ],
       ),
     );

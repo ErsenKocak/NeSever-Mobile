@@ -5,6 +5,7 @@ import 'package:ne_sever_mobile/core/app/size_config.dart';
 import 'package:ne_sever_mobile/models/Product.dart';
 import 'package:ne_sever_mobile/views/home/components/section_title.dart';
 import 'package:ne_sever_mobile/views/product-detail/view/product_detail_view.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class ProductWidget extends StatelessWidget {
   final List<Product> productList;
@@ -61,46 +62,65 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(getProportionateScreenWidth(5)),
-      child: SizedBox(
-        child: GestureDetector(
-          onTap: () {
-            //  context
-            //     .bloc<ProductDetailCubit>()
-            //     .getProductDetail(product.urunId);
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ProductDetailView(
-                    key: PageStorageKey(product.urunId.toString()),
-                    product: product,
-                  ),
-                ));
-
-            //EasyLoading.show();
-            // ignore: deprecated_member_use
-          },
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              AspectRatio(
-                aspectRatio: 1.7,
-                child: Container(
-                  padding: EdgeInsets.all(getProportionateScreenWidth(10)),
-                  decoration: BoxDecoration(
-                    color: kSecondaryColor.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: buildImages(context, product.resimUrl),
+      child: GestureDetector(
+        onTap: () {
+          //  context
+          //     .bloc<ProductDetailCubit>()
+          //     .getProductDetail(product.urunId);
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ProductDetailView(
+                  key: PageStorageKey(product.urunId.toString()),
+                  product: product,
                 ),
+              ));
+
+          //EasyLoading.show();
+          // ignore: deprecated_member_use
+        },
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            // AspectRatio(
+            //   aspectRatio: 2,
+            //   child: Container(
+            //     padding: EdgeInsets.all(getProportionateScreenWidth(10)),
+            //     decoration: BoxDecoration(
+            //       color: kSecondaryColor.withOpacity(0.1),
+            //       borderRadius: BorderRadius.circular(15),
+            //     ),
+            //     child: buildImages(context, product.resimUrl),
+            //   ),
+            // ),
+
+            Expanded(
+              flex: 3,
+              child: Container(
+                padding: EdgeInsets.all(getProportionateScreenWidth(1)),
+                decoration: BoxDecoration(
+                  color: kSecondaryColor.withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: buildImages(context, product.resimUrl),
               ),
-              Text(
-                product.urunAdi,
-                style: TextStyle(color: Colors.black),
-                maxLines: 2,
-              ),
-            ],
-          ),
+            ),
+            // Expanded(
+            //   flex: 1,
+            //   child:
+            //       // Text(
+            //       //   product.urunAdi,
+            //       //   style: TextStyle(fontSize: 12, color: Colors.black),
+            //       // ),
+
+            // ),
+            AutoSizeText(
+              product.urunAdi,
+              style: TextStyle(fontSize: 14, color: Colors.black),
+              maxLines: 2,
+            ),
+          ],
         ),
       ),
     );

@@ -1,6 +1,8 @@
+import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:logger/logger.dart';
 import 'package:ne_sever_mobile/bloc/brand/brand_cubit.dart';
 import 'package:ne_sever_mobile/core/components/brand_widget.dart';
 import 'package:ne_sever_mobile/core/components/loading_bar_manager.dart';
@@ -29,6 +31,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
     showLoadingBar();
+    networkListener();
     super.initState();
   }
 
@@ -61,15 +64,15 @@ class _HomeViewState extends State<HomeView> {
                   //   child: buildCategoriesRow(),
                   // ),
                   SizedBox(child: buildBanners()),
-                  SizedBox(
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: DiscountBanner(),
-                        ),
-                      ],
-                    ),
-                  ),
+                  // SizedBox(
+                  //   child: Row(
+                  //     children: [
+                  //       Expanded(
+                  //         child: DiscountBanner(),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
                   SizedBox(height: getProportionateScreenWidth(10)),
                   // SizedBox(
                   //   child: Row(
@@ -81,15 +84,15 @@ class _HomeViewState extends State<HomeView> {
                   //   ),
                   // ),
                   SizedBox(height: getProportionateScreenWidth(10)),
-                  SizedBox(
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: SpecialOffers(),
-                        ),
-                      ],
-                    ),
-                  ),
+                  // SizedBox(
+                  //   child: Row(
+                  //     children: [
+                  //       Expanded(
+                  //         child: SpecialOffers(),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
                   SizedBox(height: getProportionateScreenWidth(10)),
                   SizedBox(
                       child: Column(
@@ -121,8 +124,9 @@ class _HomeViewState extends State<HomeView> {
       key: PageStorageKey('1'),
       listener: (context, state) {
         if (state is BrandErrorState) {
-          Scaffold.of(context)
-              .showSnackBar(SnackBar(content: Text(state.errorMessage)));
+          print('BRAND ERROR LİSTENER');
+          dismissLoadingBar();
+          return SizedBox();
         }
       },
       // ignore: missing_return
@@ -133,22 +137,16 @@ class _HomeViewState extends State<HomeView> {
           return Center(
             child: SizedBox(),
           );
-        } else if (state is BrandLoadingState) {
-          return Center(
-            child: Text(''),
-          );
         } else if (state is BrandLoadedState) {
-          //Logger().w(state.brandList);
           dismissLoadingBar();
-          return BrandWidget(
-            brandList: state.brandList,
-            sectionTitle: "Marka",
-          );
-        } else if (state is BrandErrorState) {
-          Scaffold.of(context)
-              .showSnackBar(SnackBar(content: Text(state.errorMessage)));
-
-          return Text('');
+          if (state.brandList != null) {
+            return BrandWidget(
+              brandList: state.brandList,
+              sectionTitle: "Marka",
+            );
+          } else {
+            return SizedBox();
+          }
         }
       },
     );
@@ -159,8 +157,8 @@ class _HomeViewState extends State<HomeView> {
       key: PageStorageKey('2'),
       listener: (context, state) {
         if (state is TrendManProductErrorState) {
-          Scaffold.of(context)
-              .showSnackBar(SnackBar(content: Text(state.errorMessage)));
+          dismissLoadingBar();
+          return SizedBox();
         }
       },
       // ignore: missing_return
@@ -171,20 +169,15 @@ class _HomeViewState extends State<HomeView> {
           return Center(
             child: SizedBox(),
           );
-        } else if (state is TrendManProductLoadingState) {
-          return Center(
-            child: Text(''),
-          );
         } else if (state is TrendManProductLoadedState) {
-          return ProductWidget(
-            productList: state.trendManProductList,
-            sectionTitle: "Trend Erkek Hediyeleri",
-          );
-        } else if (state is TrendManProductErrorState) {
-          Scaffold.of(context)
-              .showSnackBar(SnackBar(content: Text(state.errorMessage)));
-
-          return Text('');
+          if (state.trendManProductList != null) {
+            return ProductWidget(
+              productList: state.trendManProductList,
+              sectionTitle: "Trend Erkek Hediyeleri",
+            );
+          } else {
+            return SizedBox();
+          }
         }
       },
     );
@@ -195,8 +188,8 @@ class _HomeViewState extends State<HomeView> {
       key: PageStorageKey('3'),
       listener: (context, state) {
         if (state is TrendWomanProductErrorState) {
-          Scaffold.of(context)
-              .showSnackBar(SnackBar(content: Text(state.errorMessage)));
+          dismissLoadingBar();
+          return SizedBox();
         }
       },
       // ignore: missing_return
@@ -207,20 +200,15 @@ class _HomeViewState extends State<HomeView> {
           return Center(
             child: SizedBox(),
           );
-        } else if (state is TrendWomanProductLoadingState) {
-          return Center(
-            child: Text(''),
-          );
         } else if (state is TrendWomanProductLoadedState) {
-          return ProductWidget(
-            productList: state.trendWomanProductList,
-            sectionTitle: "Trend Kadın Hediyeleri",
-          );
-        } else if (state is TrendWomanProductErrorState) {
-          Scaffold.of(context)
-              .showSnackBar(SnackBar(content: Text(state.errorMessage)));
-
-          return Text('');
+          if (state.trendWomanProductList != null) {
+            return ProductWidget(
+              productList: state.trendWomanProductList,
+              sectionTitle: "Trend Kadın Hediyeleri",
+            );
+          } else {
+            return SizedBox();
+          }
         }
       },
     );
@@ -231,8 +219,10 @@ class _HomeViewState extends State<HomeView> {
       key: PageStorageKey('4'),
       listener: (context, state) {
         if (state is CategoryBannerErrorState) {
-          Scaffold.of(context)
+          dismissLoadingBar();
+          ScaffoldMessenger.of(context)
               .showSnackBar(SnackBar(content: Text(state.errorMessage)));
+          return SizedBox();
         }
       },
       // ignore: missing_return
@@ -243,19 +233,20 @@ class _HomeViewState extends State<HomeView> {
           return Center(
             child: SizedBox(),
           );
-        } else if (state is CategoryBannerLoadingState) {
-          return Center(
-            child: Text(''),
-          );
         } else if (state is CategoryBannerLoadedState) {
-          return CategoryBannerWidget(
-            bannerCategoryList: state.bannerCategoryList,
-          );
+          if (state.bannerCategoryList != null) {
+            return CategoryBannerWidget(
+              bannerCategoryList: state.bannerCategoryList,
+            );
+          } else {
+            return SizedBox();
+          }
         } else if (state is CategoryBannerErrorState) {
-          Scaffold.of(context)
+          dismissLoadingBar();
+          ScaffoldMessenger.of(context)
               .showSnackBar(SnackBar(content: Text(state.errorMessage)));
 
-          return Text('');
+          return SizedBox();
         }
       },
     );
@@ -266,8 +257,8 @@ class _HomeViewState extends State<HomeView> {
       key: PageStorageKey('5'),
       listener: (context, state) {
         if (state is BannerErrorState) {
-          Scaffold.of(context)
-              .showSnackBar(SnackBar(content: Text(state.errorMessage)));
+          dismissLoadingBar();
+          return SizedBox();
         }
       },
       // ignore: missing_return
@@ -279,19 +270,15 @@ class _HomeViewState extends State<HomeView> {
           return Center(
             child: Text(''),
           );
-        } else if (state is BannerLoadingState) {
-          return Center(
-            child: Text(''),
-          );
         } else if (state is BannerLoadedState) {
-          return ImageSliderWidget(
-            bannerCategoryList: state.bannerCategoryList,
-          );
-        } else if (state is BannerErrorState) {
-          Scaffold.of(context)
-              .showSnackBar(SnackBar(content: Text(state.errorMessage)));
-
-          return Text('');
+          if (state.bannerCategoryList != null) {
+            return ImageSliderWidget(
+              bannerCategoryList: state.bannerCategoryList,
+            );
+          } else {
+            print('BRAND BLOC LOADED ELSE');
+            return SizedBox();
+          }
         }
       },
     );
@@ -304,6 +291,7 @@ class _HomeViewState extends State<HomeView> {
           key: PageStorageKey('6'),
           listener: (context, state) {
             if (state is CategoryErrorState) {
+              dismissLoadingBar();
               Scaffold.of(context)
                   .showSnackBar(SnackBar(content: Text(state.errorMessage)));
             }
@@ -316,12 +304,13 @@ class _HomeViewState extends State<HomeView> {
               return Center(
                 child: Text(''),
               );
-            } else if (state is CategoryLoadingState) {
-              return Center(
-                child: Text(''),
-              );
             } else if (state is CategoryLoadedState) {
-              return categoriesRowWidget(state);
+              dismissLoadingBar();
+              if (state.categoryList != null) {
+                return categoriesRowWidget(state);
+              } else {
+                return SizedBox();
+              }
             }
           },
         ),
@@ -355,5 +344,17 @@ class _HomeViewState extends State<HomeView> {
         },
       ),
     );
+  }
+
+  showMySnackBar(String message) {
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(message)));
+  }
+
+  networkListener() {
+    DataConnectionChecker().onStatusChange.listen((event) {
+      Logger().w(event);
+      showMySnackBar(event.toString());
+    });
   }
 }

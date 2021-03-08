@@ -53,20 +53,25 @@ class ImageSliderWidget extends StatelessWidget {
         .toList();
 
     return Container(
+        width: 1200,
+        height: 400,
         child: Column(
-      children: <Widget>[
-        CarouselSlider(
-          key: PageStorageKey('9'),
-          options: CarouselOptions(
-            autoPlayInterval: Duration(seconds: 3),
-            autoPlay: true,
-            aspectRatio: 2.0,
-            enlargeCenterPage: true,
-          ),
-          items: imageSliders,
-        ),
-      ],
-    ));
+          children: <Widget>[
+            Expanded(
+              child: CarouselSlider(
+                key: PageStorageKey('9'),
+                options: CarouselOptions(
+                  height: 400,
+                  autoPlayInterval: Duration(seconds: 3),
+                  autoPlay: true,
+                  aspectRatio: 2.0,
+                  enlargeCenterPage: true,
+                ),
+                items: imageSliders,
+              ),
+            ),
+          ],
+        ));
   }
 
   launchURL(String url) async {
